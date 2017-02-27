@@ -34,6 +34,8 @@
     
     
     <script src="<?=base_url()?>assets/libs/jquery/jquery/dist/jquery.js"></script>
+    <script src="assets/scripts/Angular/1.5.8/angular.js"></script>
+    <script src="assets/scripts/ui-bootstrap-tpls-2.5.0.min.js" type="text/javascript"></script>
   </head>
   <body>
   <div id="spin"></div>

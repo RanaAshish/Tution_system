@@ -25,4 +25,11 @@ class Branch extends auth
     public function add(){
         $this->template->load('tution/Template','tution/branch/add', $this->data);
     }
+    
+    public function addNewBranch(){
+        echo '<pre>';
+        print_r($this->input->post());
+        die();
+    }
+    
 }
