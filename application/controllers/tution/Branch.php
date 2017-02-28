@@ -19,6 +19,7 @@ class Branch extends auth
     }
     
     public function index(){
+        $this->data['branchs'] = $this->basic->selectByColumn('branch','tution_id',$_SESSION['user']['id']);
         $this->template->load('tution/Template','tution/branch/list', $this->data);
     }
     

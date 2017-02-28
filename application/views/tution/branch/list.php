@@ -1,4 +1,4 @@
-<div class="box-cell">
+<div class="box-cell" ng-app="tutionApp" ng-controller="tutionCtrl">
     <div class="box-inner padding">
         <div class="page-header-default">
             <div class="page-header-content">
@@ -22,55 +22,51 @@
                     <i class="fa fa-plus"></i>Add
                 </a>
             </div>
-
+            
             <div class="table-responsive">
                 <table class="table table-bordered bg-white">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Table heading</th>
-                            <th>Table heading</th>
-                            <th>Table heading</th>
-                            <th>Table heading</th>
-                            <th>Table heading</th>
-                            <th>Table heading</th>
+                            <th>Name</th>
+                            <th>Area</th>
+                            <th>Established year</th>
+                            <th>Contact</th>
+                            <th>Email</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
+                        <tr ng-repeat="branch in branchs track by $index">
+                            <td>{{branch.name}}</td>
+                            <td>{{branch.area}}</td>
+                            <td>{{branch.establishment_year}}</td>
+                            <td ng-init="branch.contact = jsonParse(branch.contact)">{{branch.contact[0]}}</td>
+                            <td ng-init="branch.email = jsonParse(branch.email)">{{branch.email[0]}}</td>
+                            <td></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
-
-
 </div>
-</div>
+<script type="text/javascript">
+        var app = angular.module("tutionApp", ['ui.bootstrap']);
+        app.config(['$compileProvider','$httpProvider',function($compileProvider,$httpProvider){
+            $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|sms):/);
+            $httpProvider.defaults.transformRequest = function (data) {
+                if (data === undefined) {
+                    return data;
+                }
+                return $.param(data);
+            }
+            $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+        }]);
+        app.controller("tutionCtrl", function ($scope,$http) {
+            console.log("Controller is called");
+            $scope.branchs = <?php echo json_encode($branchs); ?>;
+            $scope.jsonParse = function(str){
+                return JSON.parse(str);
+            };  
+        });
+</script>

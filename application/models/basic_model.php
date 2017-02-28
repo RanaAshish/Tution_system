@@ -90,6 +90,16 @@ class basic_model extends CI_Model {
         }
         return true;
     }
+    
+    /*
+     * $array = ["id"=>1];
+     */
+    public function selectByColumn($table,$coumnName,$value){
+        
+        $this->db->where($coumnName,$value);
+        return $this->db->get($table)->result_array();
+    }
+            
 
     /**
      * delete_batch
