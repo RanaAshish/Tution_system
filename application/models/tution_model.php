@@ -20,7 +20,7 @@ class tution_model extends CI_Model
     */
     public function count_class_data()
     {
-        return $this->db->count_all('classes');
+        return $this->db->count_all('tutions');
     }
     /*
      * Get all classes data
@@ -34,9 +34,9 @@ class tution_model extends CI_Model
     */
     public function get_all_class($limit, $start, $field = 'id', $dir = 'desc', $likearr)
     {
-        $this->db->select('l.username,c.id, c.class_name');
-        $this->db->from('classes c');
-        $this->db->join('login l', 'c.user_id=l.id');
+        $this->db->select('u.username,t.id, t.tution_name');
+        $this->db->from('tutions t');
+        $this->db->join('users u', 't.user_id=u.id');
         if(!empty($likearr))
         {
             $this->db->group_start();
@@ -55,14 +55,14 @@ class tution_model extends CI_Model
     */
     public function count_tution_by_search($str)
     {
-        $this->db->select('l.username,c.id, c.class_name');
-        $this->db->from('classes c');
-        $this->db->join('login l', 'c.user_id=l.id');
+        $this->db->select('u.username,t.id, t.tution_name');
+        $this->db->from('tutions t');
+        $this->db->join('users u', 't.user_id=u.id');
         if(!empty($likearr))
         {
             $this->db->group_start();
             $this->db->or_like('username', $str);
-            $this->db->or_like('classname', $str);
+            $this->db->or_like('tution_name', $str);
             $this->db->group_end();
         }
         return count($this->db->get()->result_array());

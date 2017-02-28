@@ -122,8 +122,8 @@ class Tution extends CI_Controller {
         else if ($type == 'get') 
         {
             $col = [
+                'tution_name',
                 'username',
-                'class_name',
                 ''
             ];
             $dir = $this->input->post('order[0][dir]');
@@ -135,7 +135,7 @@ class Tution extends CI_Controller {
             $ser = $this->input->post('search[value]');
             $sercnt = 0;
             if (!empty($ser)) {
-                $likearr['username'] = $likearr['class_name'] = $ser;
+                $likearr['username'] = $likearr['tution_name'] = $ser;
                 $sercnt = $this->tution->count_tution_by_search($ser);
             }
             $result = $this->tution->get_all_class($end, $start, $field, $dir, $likearr);
@@ -144,7 +144,7 @@ class Tution extends CI_Controller {
             $data['data'] = [];
             foreach ($result as $row) {
                 $data['data'][] = [
-                    $row['class_name'],
+                    $row['tution_name'],
                     $row['username'],
                     '<a href="admin/tutions/edit/' . $row['id'] . '" ><i class="fa fa-pencil-square-o"></i></a>&nbsp;'.
                     '<a href="admin/tutions/delete/' . $row['id'] . '" onclick="return confirm(\'Are you sure you want to Delete?\')"><i class="fa fa-remove"></i></a>&nbsp;' .
@@ -156,7 +156,7 @@ class Tution extends CI_Controller {
         } 
         else if ($type == 'delete') 
         {
-            $this->basic->delete('classes', ['id' => $param1]);
+            $this->basic->delete('tutions', ['id' => $param1]);
             redirect('admin/tutions');
             die;
         }
