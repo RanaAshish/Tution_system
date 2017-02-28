@@ -27,8 +27,24 @@ class Branch extends auth
     }
     
     public function addNewBranch(){
-        echo '<pre>';
-        print_r($this->input->post());
+        $data = $this->input->post();
+        $data['tution_id'] = $_SESSION['user']['id'];
+        $data['establishment_year'] = $data['year'];
+        $data['contact'] = json_encode($data['contacts']);
+        $data['email'] = json_encode($data['emails']);
+        unset($data['contacts']);
+        unset($data['emails']);
+        unset($data['year']);
+        $result = $this->basic->insert("branch",$data);
+        $responce = array();
+        if($result != 0){
+            $responce['status']='true';
+            $responce['message']='';
+        }else{
+            $responce['status']='false';
+            $responce['message']='';
+        }
+        echo json_encode($responce);
         die();
     }
     
