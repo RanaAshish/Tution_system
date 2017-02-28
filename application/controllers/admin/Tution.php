@@ -42,34 +42,26 @@ class Tution extends CI_Controller {
                     'password' => $password,
                     'role_id' => 2
                 );
-                if ($login_id = $this->basic->insert('login', $login_user)) 
+                if ($login_id = $this->basic->insert('users', $login_user)) 
                 {
                     // Insert class
                     $class = array(
                         'user_id' => $login_id,
-                        'class_name' => $this->input->post('class_name')
+                        'tution_name' => $this->input->post('class_name')
                     );
-                    if ($class_id = $this->basic->insert('classes', $class)) 
+                    if ($class_id = $this->basic->insert('tutions', $class)) 
                     {
                         // Insert branch
                         $branch_arr = array(
-                            'class_id' => $class_id,
+                            'tution_id' => $class_id,
                             'address' => $this->input->post('address'),
                             'establishment_year' => $this->input->post('established_year'),
+                            'contact' => json_encode([$this->input->post('contact_number')]),
+                            'email' => json_encode([$this->input->post('email')]),
                             'is_primary' => '1'
                         );
-                        if ($branch_id = $this->basic->insert('branch', $branch_arr)) 
-                        {
-                            // Insert Email and contact
-                            if ($email_id = $this->basic->insert('email', ['email_id' => $this->input->post('email')])) 
-                            {
-                                $this->basic->insert('branch_email', ['branch_id' => $branch_id, "email_id" => $email_id,'is_primary' => '1']);
-                            }
-                            if ($contact_id = $this->basic->insert('contact', ['number' => $this->input->post('contact_number')])) 
-                            {
-                                $this->basic->insert('branch_contact', ['branch_id' => $branch_id, "contact_id" => $contact_id,'is_primary' => '1']);
-                            }
-                        }
+                        $branch_id = $this->basic->insert('branch', $branch_arr); 
+                        $this->session->set_flashdata('succ', 'Tution successfully added with us.');
                     }
                 }
                 redirect('/admin/tutions');
