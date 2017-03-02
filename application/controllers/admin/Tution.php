@@ -56,15 +56,17 @@ class Tution extends CI_Controller {
                             'tution_id' => $class_id,
                             'address' => $this->input->post('address'),
                             'establishment_year' => $this->input->post('established_year'),
-                            'contact' => json_encode([$this->input->post('contact_number')]),
-                            'email' => json_encode([$this->input->post('email')]),
+                            'contact' => json_encode($this->input->post('contacts')),
+                            'email' => json_encode($this->input->post('emails')),
                             'is_primary' => '1'
                         );
                         $branch_id = $this->basic->insert('branch', $branch_arr); 
-                        $this->session->set_flashdata('succ', 'Tution successfully added with us.');
+//                        $this->session->set_flashdata('succ', 'Tution successfully added with us.');
+                        echo json_encode(['status' => 'true']);
+                        die;
                     }
                 }
-                redirect('/admin/tutions');
+//                redirect('/admin/tutions');
             }
             else 
             {

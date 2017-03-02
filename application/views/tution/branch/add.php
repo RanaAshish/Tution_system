@@ -1,5 +1,3 @@
-
-
 <div class="box-cell" ng-app="tutionApp" ng-controller="tutionCtrl">
     <div dismiss-on-timeout="2000" uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>
     <div class="box-inner padding">
