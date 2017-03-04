@@ -1,0 +1,4 @@
+@Sarfale Siddharth
+[ 01-03-17 ]
+    1. ALTER TABLE `tutions` ADD `is_delete` ENUM('0','1') NULL AFTER `cover_image`
+    2. ALTER TABLE `tutions` CHANGE `is_delete` `is_delete` ENUM('0','1') NULL DEFAULT '0';

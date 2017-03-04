@@ -133,15 +133,11 @@ class tution_model extends CI_Model
      * 
      */
     public function get_tution_info_by_id($id) {
-        $this->db->select('l.id as login_id,l.username,c.class_name,c.id,b.id as branch_id, b.address, b.establishment_year,co.number,em.email_id,co.id as contact_id, em.id as e_id');
-        $this->db->from('classes c');
-        $this->db->where('c.id = '.$id);
-        $this->db->join('login l','l.id = c.user_id');
-        $this->db->join('branch b','b.class_id = c.id and b.is_primary = "1"');
-        $this->db->join('branch_email be','be.branch_id = b.id and be.is_primary = "1"','left');
-        $this->db->join('email em','em.id = be.email_id and em.is_delete = "0"','left');
-        $this->db->join('branch_contact bc','bc.branch_id = b.id and bc.is_primary = "1"','left');
-        $this->db->join('contact co','co.id = bc.contact_id and co.is_delete = "0"','left');
+        $this->db->select('u.id as user_id,u.username,t.tution_name,t.id,b.id as branch_id, b.address, b.establishment_year,b.email,b.contact');
+        $this->db->from('tutions t');
+        $this->db->where('t.id = '.$id);
+        $this->db->join('users u','u.id = t.user_id');
+        $this->db->join('branch b','b.tution_id = t.id and b.is_primary = "1"');
         return $this->db->get()->row_array();
     }
 }

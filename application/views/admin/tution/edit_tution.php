@@ -1,6 +1,16 @@
 <?php // var_dump($tution_info);die; ?>
 <div class="box-cell" ng-app="tution_app" ng-controller="edit_controller">
     <div class="box-inner padding">
+        <?php
+            if($this->session->flashdata('succ') != null){
+        ?>
+        <div class="alert alert-success">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <?=$this->session->flashdata('succ')?>
+        </div>
+        <?php
+            }
+        ?>
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
@@ -9,9 +19,8 @@
                     </div>
                     <div class="panel-body">
                         <form action="admin/tutions/edit/<?php echo $tution_info['id'] ?>" method="post" class="form-horizontal" role="form" name="registration_form">
-                            <input type="hidden" name="contact_id" value="<?php echo $tution_info['contact_id'] ?>">
-                            <input type="hidden" name="e_id" value="<?php echo $tution_info['e_id'] ?>">
-                            <input type="hidden" name="login_id" value="<?php echo $tution_info['login_id'] ?>">
+                            <input type="hidden" name="contact_id" value="<?php echo $tution_info['contact'] ?>">
+                            <input type="hidden" name="user_id" value="<?php echo $tution_info['user_id'] ?>">
                             <input type="hidden" name="branch_id" value="<?php echo $tution_info['branch_id'] ?>">
                             <div class="form-group has-feedback" ng-class="(registration_form.email.$valid) ? 'has-success': (registration_form.email.$dirty)?'has-error':''">
                                 <label class="col-sm-2 control-label">Email : </label>
@@ -76,7 +85,7 @@
 
 <!-- Page variables -->
 <script type="text/javascript">
-    var tution_info = JSON.parse('<?php echo json_encode($tution_info); ?>');
+    var tution_info = <?php echo json_encode($tution_info); ?>;
 </script>
 <!-- Page variables -->
 

@@ -20,7 +20,7 @@
         <link rel="stylesheet" href="assets/styles/custom.css" type="text/css"/>
         <script src="assets/libs/jquery/jquery/dist/jquery.js"></script>
         <script src="assets/scripts/Angular/1.5.8/angular.js"></script>
-        
+        <script src="assets/scripts/ui-bootstrap-tpls-2.5.0.min.js" type="text/javascript"></script>
     </head>
     <body>
         <div class="app">
