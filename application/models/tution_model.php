@@ -133,7 +133,7 @@ class tution_model extends CI_Model
      * 
      */
     public function get_tution_info_by_id($id) {
-        $this->db->select('u.id as user_id,u.username,t.tution_name,t.id,b.id as branch_id, b.address, b.establishment_year,b.email,b.contact');
+        $this->db->select('u.id as user_id,u.username,t.tution_name,t.id,b.id as branch_id, b.address, b.establishment_year,b.email,b.contact,b.area,b.latitude,b.longitude');
         $this->db->from('tutions t');
         $this->db->where('t.id = '.$id);
         $this->db->join('users u','u.id = t.user_id');

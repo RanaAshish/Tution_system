@@ -58,7 +58,9 @@ class Tution extends CI_Controller {
                             'establishment_year' => $this->input->post('established_year'),
                             'contact' => json_encode($this->input->post('contacts')),
                             'email' => json_encode($this->input->post('emails')),
-                            'is_primary' => '1'
+                            'is_primary' => '1',
+                            'latitude' => $this->input->post('latitude'),
+                            'longitude' => $this->input->post('longitude')
                         );
                         $branch_id = $this->basic->insert('branch', $branch_arr); 
 //                        $this->session->set_flashdata('succ', 'Tution successfully added with us.');
@@ -77,16 +79,15 @@ class Tution extends CI_Controller {
         else if($type == 'edit'){
             if($this->input->post())
             {
-              //  var_dump($this->input->post());die;
                 // Update operation
                 $login_user = array(
                     'username' => $this->input->post('username'),
                 );
-                if ($this->basic->update('users', $login_user,["id"=>$this->input->post('login_id')])) 
+                if ($this->basic->update('users', $login_user,["id"=>$this->input->post('user_id')])) 
                 {
                     // Insert class
                     $class = array(
-                        'tution_name' => $this->input->post('class_name')
+                        'tution_name' => $this->input->post('tution_name')
                     );
                     if ($this->basic->update('tutions', $class,["id" => $param1])) 
                     {
@@ -94,14 +95,18 @@ class Tution extends CI_Controller {
                         $branch_arr = array(
                             'address' => $this->input->post('address'),
                             'establishment_year' => $this->input->post('established_year'),
-                            'contact' => json_encode([$this->input->post('contact_number')]),
-                            'email' => json_encode([$this->input->post('email')])
+                            'contact' => json_encode($this->input->post('contacts')),
+                            'email' => json_encode($this->input->post('emails')),
+                            'area' => $this->input->post('area'),
+                            'latitude' => $this->input->post('latitude'),
+                            'longitude' => $this->input->post('longitude')
                         );
                         $this->basic->update('branch', $branch_arr,["id"=>$this->input->post('branch_id')]);
-                        $this->session->set_flashdata('succ', 'Record updated successfully.');
+                        echo json_encode(['status' => true]);
+                        
                     }
                 }
-                redirect('/admin/tutions/edit/'.$param1);
+                die;
             }
             else
             {

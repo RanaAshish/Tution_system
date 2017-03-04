@@ -1,25 +1,28 @@
 <?php // var_dump($tution_info);die; ?>
-<div class="box-cell" ng-app="tution_app" ng-controller="edit_controller">
+<div class="box-cell" ng-app="tution_app" ng-controller="edit_controller" ng-cloak="">
     <div class="box-inner padding">
-        <?php
-            if($this->session->flashdata('succ') != null){
-        ?>
-        <div class="alert alert-success">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <?=$this->session->flashdata('succ')?>
+        <div class="page-header-default">
+            <div class="page-header-content">
+                <div class="page-title">
+                    <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Home</span> - Edit Tution</h4>
+                    <a class="heading-elements-toggle"><i class="icon-more"></i></a></div>
+            </div>
+            <div class="breadcrumb-line"><a class="breadcrumb-elements-toggle"><i class="icon-menu-open"></i></a>
+                <ul class="breadcrumb">
+                    <li><a href="admin/tution"><i class="icon-home2 position-left"></i> Home</a></li>
+                    <li class="active">Edit Tution</li>
+                </ul>
+            </div>
         </div>
-        <?php
-            }
-        ?>
         <div class="row">
-            <div dismiss-on-timeout="2000" uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>
             <div class="col-md-12">
+            <div dismiss-on-timeout="2000" uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Tution Registration
+                        Edit Tution
                     </div>
                     <div class="panel-body">
-                        <form action="admin/tutions/edit/<?php echo $tution_info['id'] ?>" method="post" class="form-horizontal" role="form" name="registration_form">
+                        <form  ng-submit="editTution()" class="form-horizontal" role="form" name="registration_form">
                             <input type="hidden" name="contact_id" value="<?php echo $tution_info['contact'] ?>">
                             <input type="hidden" name="user_id" value="<?php echo $tution_info['user_id'] ?>">
                             <input type="hidden" name="branch_id" value="<?php echo $tution_info['branch_id'] ?>">
@@ -47,9 +50,10 @@
                             <div class="form-group has-feedback" ng-class="(registration_form.username.$valid) ? 'has-success': (registration_form.username.$dirty)?'has-error':''">
                                 <label class="col-sm-2 control-label">Username : </label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="username" ng-model="tution.username" placeholder="Enter Username" required="">
+                                    <input type="text" class="form-control" name="username" ng-blur="checkexist()" ng-model="tution.username" placeholder="Enter Username" required="">
                                     <span ng-show="registration_form.username.$valid" class="glyphicon glyphicon-ok form-control-feedback"></span>
                                     <span ng-show="!registration_form.username.$valid && registration_form.username.$dirty" class="glyphicon glyphicon-remove  form-control-feedback"></span>
+                                    <span class="text-danger" ><small>{{msg}}</small></span>
                                 </div>
                             </div>
                             <div class="form-group has-feedback" ng-class="(registration_form.class_name.$valid) ? 'has-success': (registration_form.class_name.$dirty)?'has-error':''">
@@ -58,6 +62,17 @@
                                     <input type="text" class="form-control" minlength="3" name="class_name" ng-model="tution.tution_name" placeholder="Enter name of the tution class" required="">
                                     <span ng-show="registration_form.class_name.$valid" class="glyphicon glyphicon-ok form-control-feedback"></span>
                                     <span ng-show="!registration_form.class_name.$valid && registration_form.class_name.$dirty" class="glyphicon glyphicon-remove  form-control-feedback"></span>
+                                </div>
+                            </div>
+                            <div class="form-group has-feedback" ng-class="(registration_form.area.$valid) ? 'has-success': (registration_form.area.$dirty)?'has-error':''">
+                                <label class="col-sm-2 control-label">Area :</label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" name="area" type="text" ng-model="tution.area" googleplace ng-required="true">
+                                    <span class="text-danger" ng-show="registration_form.area.$touched && form.area.$invalid">
+                                        <small> 
+                                            This field is required.                           
+                                        </small>
+                                    </span>
                                 </div>
                             </div>
                             <div class="form-group has-feedback" ng-class="(registration_form.address.$valid) ? 'has-success': (registration_form.address.$dirty)?'has-error':''">
@@ -128,6 +143,7 @@ AIzaSyBFhy3EkQmrqLGnGgRx4K-DapTVtiF762I
 -->
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBFhy3EkQmrqLGnGgRx4K-DapTVtiF762I"></script>
 <script type="text/javascript" >
+var tution_detail = <?php echo json_encode($tution_info); ?>;
 var app = angular.module('tution_app', ['ui.bootstrap']);
 app.config(['$compileProvider','$httpProvider',function($compileProvider,$httpProvider){
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|sms):/);
@@ -179,6 +195,7 @@ app.controller('edit_controller', function ($scope,$filter,$http) {
     $scope.tution.emails = [null];
     $scope.tution.emails = JSON.parse($scope.tution.email);
     $scope.tution.contacts = JSON.parse($scope.tution.contact);
+    $scope.tution.established_year = new Date($scope.tution.establishment_year, 1,1);
     $scope.addContact = function () {
         $scope.tution.contacts.push('');
     };
@@ -191,19 +208,20 @@ app.controller('edit_controller', function ($scope,$filter,$http) {
     $scope.removeEmail = function (key) {
         $scope.tution.emails.splice(key, 1);
     };
-    $scope.addTution = function()
+    $scope.editTution = function()
     {
-        $scope.tution.latitude = $scope.gPlace.location.lat();
-        $scope.tution.longitude = $scope.gPlace.location.lng();
+        if($scope.gPlace.hasOwnProperty('location'))
+        {
+            $scope.tution.latitude = $scope.gPlace.location.lat();
+            $scope.tution.longitude = $scope.gPlace.location.lng();
+        }
         $scope.tution.established_year = $filter('date')($scope.tution.established_year, 'yyyy');
-        $http.post('<?= base_url('admin/tutions/edit')?>',$scope.tution).then(function(res){
+        $http.post('<?= base_url('admin/tutions/edit/'.$tution_info['id'])?>',$scope.tution).then(function(res){
             if(res.status){
-                $scope.tution = {};
-                $scope.tution.contacts = [null];
-                $scope.tution.emails = [null];
-                $scope.alerts.push({type:'success',msg: 'New Tution is successfully inserted.'});
+                $scope.tution.established_year = new Date($scope.tution.established_year, 1,1);
+                $scope.alerts.push({type:'success',msg: 'Tution\'s data updated successfully.'});
             }else{
-                $scope.alerts.push({type:'danger',msg: 'Fail to insert new tution.'});
+                $scope.alerts.push({type:'danger',msg: 'Fail to update tution data.'});
             }
         }, function(err){
             console.log("Tution Registration Controller :: ",err);
@@ -216,7 +234,10 @@ app.controller('edit_controller', function ($scope,$filter,$http) {
     $scope.msg = '';
     $scope.checkexist = function()
     {
+        $scope.msg = '';
         if(!$scope.tution.hasOwnProperty('username'))
+            return;
+        if($scope.tution.username == tution_detail.username)
             return;
         $http.post('<?=base_url('admin/tutions/checkusername')?>', {uname:$scope.tution.username}).then(function(res){
             if(res.data.status)
