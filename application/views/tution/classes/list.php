@@ -76,6 +76,7 @@
                     </small>
                 </span>
             </div>
+            <js-tree tree-data="scope" tree-model="courses"></js-tree>
             <button type="submit" class="btn btn-success m-b waves-effect" ng-disabled="!form.$valid">Submit</button>
         </form>
       </div>
@@ -90,7 +91,7 @@
 
 
 <script type="text/javascript">
-        var app = angular.module("tutionApp", ['ui.bootstrap']);
+        var app = angular.module("tutionApp", ['ui.bootstrap','jsTree.directive']);
         app.config(['$compileProvider','$httpProvider',function($compileProvider,$httpProvider){
             $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|sms):/);
             $httpProvider.defaults.transformRequest = function (data) {
@@ -106,6 +107,13 @@
             $scope.class = {};
             $scope.classes = <?php echo json_encode($classes); ?>;
             $scope.courses = <?php echo json_encode($courses); ?>;
+            $scope.courses.push(
+                    {
+                        id:0,
+                        text:'Couses',
+                        parent:'#',
+                        state:{opened: true}
+                    });
             console.log("$scope.courses:",$scope.courses);
             $scope.jsonParse = function(str){
                 return JSON.parse(str);

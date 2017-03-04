@@ -29,7 +29,7 @@
     <script src="<?=base_url()?>assets/scripts/ui-bootstrap-tpls-2.5.0.min.js" type="text/javascript"></script>
     
     <!--JS Tree-->
-    <link href="<?=base_url()?>assets/plugins/jsTree/jsTree.css" rel="stylesheet" type="text/css"/>
+    <link href="<?=base_url()?>assets/plugins/jsTree/jsTree.min.css" rel="stylesheet" type="text/css"/>
     <script src="<?=base_url()?>assets/plugins/jsTree/jsTree.min.js" type="text/javascript"></script>
     <script src="<?=base_url()?>assets/plugins/jsTree/jsTree.directive.js" type="text/javascript"></script>
     

@@ -1,4 +1,8 @@
-@Sarfale Siddharth
-[ 01-03-17 ]
-    1. ALTER TABLE `tutions` ADD `is_delete` ENUM('0','1') NULL AFTER `cover_image`
-    2. ALTER TABLE `tutions` CHANGE `is_delete` `is_delete` ENUM('0','1') NULL DEFAULT '0';
+@Sarfale Siddharth[ 01-03-17 ]
+
+ALTER TABLE `tutions` ADD `is_delete` ENUM('0','1') NULL AFTER `cover_image`;
+ALTER TABLE `tutions` CHANGE `is_delete` `is_delete` ENUM('0','1') NULL DEFAULT '0';
+
+@Mikinj: 3-3-2017	
+
+ALTER TABLE `course` CHANGE `name` `text` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
