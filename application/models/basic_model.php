@@ -100,6 +100,9 @@ class basic_model extends CI_Model {
         return $this->db->get($table)->result_array();
     }
             
+    public function select($table){
+        return $this->db->get($table)->result_array();
+    }
 
     /**
      * delete_batch

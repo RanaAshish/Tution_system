@@ -3,10 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp64/www/tution-management/application/views/tution/branch/add.php</file>
-            <file>file:/C:/wamp64/www/tution-management/application/views/template/tution/Template.php</file>
+            <file>file:/C:/wamp64/www/tution-management/application/config/routes.php</file>
+            <file>file:/C:/wamp64/www/tution-management/application/controllers/tution/Auth.php</file>
+            <file>file:/C:/wamp64/www/tution-management/application/config/autoload.php</file>
+            <file>file:/C:/wamp64/www/tution-management/application/controllers/tution/Classes.php</file>
             <file>file:/C:/wamp64/www/tution-management/application/views/tution/branch/list.php</file>
             <file>file:/C:/wamp64/www/tution-management/application/controllers/tution/Branch.php</file>
+            <file>file:/C:/wamp64/www/tution-management/application/views/tution/classes/list.php</file>
         </group>
     </open-files>
 </project-private>

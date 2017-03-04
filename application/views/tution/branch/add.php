@@ -73,10 +73,10 @@
                             </small>
                         </span>
                     </div>
+                    <div class="form-group" style="margin-bottom: 0px">
+                        <label>Contact</label>
+                    </div>
                     <div class="form-group row" ng-repeat="(key,contact) in branch.contacts track by key">
-                        <div class="col-sm-12">
-                            <label>Contact</label>
-                        </div>
                         <div class="col-sm-4">
                             <input type="number" class="form-control" name="contect_{{key}}" ng-model="branch.contacts[key]" ng-required="true"/>
                         </div>
@@ -99,10 +99,10 @@
                             <i class="fa fa-plus"></i>Add more
                         </button>
                     </div>
+                    <div class="form-group" style="margin-bottom: 0px">
+                        <label>Email</label>
+                    </div>
                     <div class="form-group row" ng-repeat="(key,email) in branch.emails track by key">
-                        <div class="col-sm-12">
-                            <label>Email</label>
-                        </div>
                         <div class="col-sm-4">
                             <input type="email" class="form-control" name="email_{{key}}" ng-model="branch.emails[key]" ng-required="true"/>
                         </div>
@@ -217,6 +217,7 @@ AIzaSyBFhy3EkQmrqLGnGgRx4K-DapTVtiF762I
                         $scope.branch = {};
                         $scope.branch.contacts = [null];
                         $scope.branch.emails = [null];
+                        $scope.form.$setUntouched()
                         $scope.alerts.push({type:'success',msg: 'Your Branch is successfully inserted'});
                     }else{
                         $scope.alerts.push({type:'danger',msg: 'Your Branch is insert operation is failed'});

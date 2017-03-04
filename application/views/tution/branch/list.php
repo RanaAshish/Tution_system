@@ -37,7 +37,7 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="branch in branchs track by $index">
-                            <td>{{branch.name}}</td>
+                            <td><a href="tution/branch/{{branch.id}}">{{branch.name}}</a></td>
                             <td>{{branch.area}}</td>
                             <td>{{branch.establishment_year}}</td>
                             <td ng-init="branch.contact = jsonParse(branch.contact)">{{branch.contact[0]}}</td>
@@ -62,6 +62,11 @@
             }
             $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
         }]);
+        app.filter('base64', function () {
+            return function (input) {
+                return btoa(input);
+            };
+        });
         app.controller("tutionCtrl", function ($scope,$http) {
             console.log("Controller is called");
             $scope.branchs = <?php echo json_encode($branchs); ?>;

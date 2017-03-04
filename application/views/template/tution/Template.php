@@ -18,24 +18,21 @@
     <link rel="stylesheet" href="<?=base_url()?>assets/styles/font.css" type="text/css" />
     <link rel="stylesheet" href="<?=base_url()?>assets/styles/app.css" type="text/css" />
 
-    <!--form wizard-->
-    <link rel="stylesheet" href="<?=base_url()?>assets/plugins/form-wizard/css/gsi.css" type="text/css" />
-    <link rel="stylesheet" href="<?=base_url()?>assets/plugins/form-wizard/css/tsf-wizard.css" type="text/css" />
-    
-    <!--image upload-->
-    <link rel="stylesheet" href="<?=base_url()?>assets/plugins/img-upload/css/bootstrap-imageupload.min.css" type="text/css" />
-    
-    <!--Bootstrap datepicker-->
-    <link href="<?=base_url()?>assets/plugins/datepicker/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css"/>
-    
-    
     <!--custome css-->
     <link rel="stylesheet" href="<?=base_url()?>assets/styles/custome.css" type="text/css" />
     
     
     <script src="<?=base_url()?>assets/libs/jquery/jquery/dist/jquery.js"></script>
-    <script src="assets/scripts/Angular/1.5.8/angular.js"></script>
-    <script src="assets/scripts/ui-bootstrap-tpls-2.5.0.min.js" type="text/javascript"></script>
+    <script src="<?=base_url()?>assets/scripts/Angular/1.5.8/angular.js"></script>
+    
+    <!--UI Bootstrap-->
+    <script src="<?=base_url()?>assets/scripts/ui-bootstrap-tpls-2.5.0.min.js" type="text/javascript"></script>
+    
+    <!--JS Tree-->
+    <link href="<?=base_url()?>assets/plugins/jsTree/jsTree.css" rel="stylesheet" type="text/css"/>
+    <script src="<?=base_url()?>assets/plugins/jsTree/jsTree.min.js" type="text/javascript"></script>
+    <script src="<?=base_url()?>assets/plugins/jsTree/jsTree.directive.js" type="text/javascript"></script>
+    
   </head>
   <body>
   <div id="spin"></div>

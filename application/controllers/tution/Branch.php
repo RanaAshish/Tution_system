@@ -11,8 +11,8 @@
  *
  * @author Me
  */
-require_once 'auth.php';
-class Branch extends auth 
+require_once 'Auth.php';
+class Branch extends Auth 
 {
     public function __construct() {
         parent::__construct();   
