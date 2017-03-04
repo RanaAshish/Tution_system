@@ -146,6 +146,15 @@ class Tution extends CI_Controller {
             echo json_encode($data);
             die;
         } 
+        else if($type == 'checkusername')
+        {
+            $result = $this->basic->selectByColumn('users', 'username', $this->input->post('uname'));
+            if(count($result) >= 1)
+                echo json_encode(['status'=>true]);
+            else
+                echo json_encode(['status'=>false]);
+            die;
+        }
         else if ($type == 'delete') 
         {
             $this->basic->delete('tutions', ['id' => $param1]);

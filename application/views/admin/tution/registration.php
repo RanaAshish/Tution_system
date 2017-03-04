@@ -47,19 +47,31 @@
                             <div class="form-group has-feedback" ng-class="(registration_form.username.$valid) ? 'has-success': (registration_form.username.$dirty)?'has-error':''">
                                 <label class="col-sm-2 control-label">Username : </label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="username" ng-model="tution.username" placeholder="Enter Username" required="">
+                                    <input type="text" class="form-control" name="username" ng-blur="checkexist()" ng-model="tution.username" placeholder="Enter Username" required="">
                                     <span ng-show="registration_form.username.$valid" class="glyphicon glyphicon-ok form-control-feedback"></span>
                                     <span ng-show="!registration_form.username.$valid && registration_form.username.$dirty" class="glyphicon glyphicon-remove  form-control-feedback"></span>
+                                    <span class="text-danger" ><small>{{msg}}</small></span>
                                 </div>
                             </div>
                             <div class="form-group has-feedback" ng-class="(registration_form.class_name.$valid) ? 'has-success': (registration_form.class_name.$dirty)?'has-error':''">
                                 <label class="col-sm-2 control-label">Class Name : </label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" minlength="3" name="class_name" ng-model="tution.class_name" placeholder="Enter name of the tution class" required="">
+                                    <input type="text" class="form-control" minlength="3" name="class_name" ng-model="tution.tution_name" placeholder="Enter name of the tution class" required="">
                                     <span ng-show="registration_form.class_name.$valid" class="glyphicon glyphicon-ok form-control-feedback"></span>
                                     <span ng-show="!registration_form.class_name.$valid && registration_form.class_name.$dirty" class="glyphicon glyphicon-remove  form-control-feedback"></span>
                                 </div>
                             </div>
+                            <div class="form-group has-feedback" ng-class="(registration_form.area.$valid) ? 'has-success': (registration_form.area.$dirty)?'has-error':''">
+                                <label class="col-sm-2 control-label">Area :</label>
+                                <div class="col-sm-8">
+                                    <input class="form-control" name="area" type="text" ng-model="tution.area" googleplace ng-required="true">
+                                    <span class="text-danger" ng-show="registration_form.area.$touched && form.area.$invalid">
+                                        <small> 
+                                            This field is required.                           
+                                        </small>
+                                    </span>
+                                </div>
+                            </div> 
                             <div class="form-group has-feedback" ng-class="(registration_form.address.$valid) ? 'has-success': (registration_form.address.$dirty)?'has-error':''">
                                 <label class="col-sm-2 control-label">Address : </label>
                                 <div class="col-sm-8">
@@ -122,6 +134,11 @@
         </div>
     </div>
 </div>
+<!--
+Google Map Api Key:
+AIzaSyBFhy3EkQmrqLGnGgRx4K-DapTVtiF762I
+-->
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBFhy3EkQmrqLGnGgRx4K-DapTVtiF762I"></script>
 <script type="text/javascript" >
 var app = angular.module('tution_app', ['ui.bootstrap']);
 app.config(['$compileProvider','$httpProvider',function($compileProvider,$httpProvider){
@@ -134,6 +151,34 @@ app.config(['$compileProvider','$httpProvider',function($compileProvider,$httpPr
     }
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
 }]);
+app.directive('googleplace', function () {
+    return {
+        require: 'ngModel',
+        link: function (scope, element, attrs, model) {
+            var options = {
+                types: [],
+                componentRestrictions: {country: "in"}
+
+            };
+            scope.gPlace = new google.maps.places.Autocomplete(element[0],
+                    options);
+            google.maps.event.addListener(scope.gPlace, 'place_changed',
+                    function () {
+                        var geoComponents = scope.gPlace.getPlace();
+                        var latitude = geoComponents.geometry.location.lat();
+                        var longitude = geoComponents.geometry.location.lng();
+                        var addressComponents = geoComponents.address_components;
+                        scope.$apply(function () {
+                            model.$setViewValue(element.val());
+                            scope.gPlace = geoComponents.geometry;
+                            console.log(element.val());
+                            console.log("Latitude : " + latitude + "  Longitude : " + longitude);
+                        });
+                    });
+        }
+
+    };
+})
 app.controller('registration_controller', function ($scope,$filter,$http) {
     //For datepicker
     $scope.isOpen = false;
@@ -158,6 +203,8 @@ app.controller('registration_controller', function ($scope,$filter,$http) {
     };
     $scope.addTution = function()
     {
+        $scope.tution.latitude = $scope.gPlace.location.lat();
+        $scope.tution.longitude = $scope.gPlace.location.lng();
         $scope.tution.established_year = $filter('date')($scope.tution.established_year, 'yyyy');
         $http.post('<?= base_url('admin/tutions/add')?>',$scope.tution).then(function(res){
             if(res.status){
@@ -175,5 +222,25 @@ app.controller('registration_controller', function ($scope,$filter,$http) {
     $scope.closeAlert = function(index) {
         $scope.alerts.splice(index, 1);
     };
+    $scope.uerr = false;
+    $scope.msg = '';
+    $scope.checkexist = function()
+    {
+        if(!$scope.tution.hasOwnProperty('username'))
+            return;
+        $http.post('<?=base_url('admin/tutions/checkusername')?>', {uname:$scope.tution.username}).then(function(res){
+            if(res.data.status)
+            {
+               $scope.uerr = true;
+               $scope.msg = 'Username already exist';
+               $scope.tution.username = '';
+            }
+            else
+            {
+               $scope.uerr = false;
+               $scope.msg = '';
+            }
+        });
+    }
 });
 </script>
