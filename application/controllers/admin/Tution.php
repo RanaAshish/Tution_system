@@ -63,12 +63,10 @@ class Tution extends CI_Controller {
                             'longitude' => $this->input->post('longitude')
                         );
                         $branch_id = $this->basic->insert('branch', $branch_arr); 
-//                        $this->session->set_flashdata('succ', 'Tution successfully added with us.');
                         echo json_encode(['status' => 'true']);
                         die;
                     }
                 }
-//                redirect('/admin/tutions');
             }
             else 
             {
@@ -140,11 +138,20 @@ class Tution extends CI_Controller {
             $data['recordsFiltered'] = !empty($ser) ? count($result) : $cnt;
             $data['data'] = [];
             foreach ($result as $row) {
+                $delstr = '';
+                if($row['is_delete'] == '0')
+                {
+                    $delstr = '<a href="admin/tutions/delete/' . $row['id'] . '/1" onclick="return confirm(\'Are you sure you want to Delete?\')"><i class="fa fa-remove"></i></a>&nbsp;';
+                }
+                else
+                {
+                    $delstr = '<a href="admin/tutions/delete/' . $row['id'] . '/0" title="Undo Tution"><i class="fa fa-undo"></i></a>&nbsp;';
+                }
                 $data['data'][] = [
                     $row['tution_name'],
                     $row['username'],
                     '<a href="admin/tutions/edit/' . $row['id'] . '" ><i class="fa fa-pencil-square-o"></i></a>&nbsp;'.
-                    '<a href="admin/tutions/delete/' . $row['id'] . '" onclick="return confirm(\'Are you sure you want to Delete?\')"><i class="fa fa-remove"></i></a>&nbsp;' .
+                     $delstr.
                     '<a href="admin/tutions/branch/'.$row['id'].'" id="' . $row['id'] . '" class="branch_view" title="view branches"><i class="fa fa-building-o"></i></a>'
                 ];
             }
@@ -162,9 +169,12 @@ class Tution extends CI_Controller {
         }
         else if ($type == 'delete') 
         {
-            $this->basic->delete('tutions', ['id' => $param1]);
+            $this->basic->update('tutions', ['is_delete' => $param2], ['id' => $param1]);
+            if($param2 == 1)
+                $this->session->set_flashdata('succ', 'Tution deleted successfully.');
+            else
+                $this->session->set_flashdata('succ', 'Tution recovered successfully.');
             redirect('admin/tutions');
-            die;
         }
         else if ($type == 'branch') 
         {

@@ -34,7 +34,7 @@ class tution_model extends CI_Model
     */
     public function get_all_class($limit, $start, $field = 'id', $dir = 'desc', $likearr)
     {
-        $this->db->select('u.username,t.id, t.tution_name');
+        $this->db->select('u.username,t.id, t.tution_name, t.is_delete');
         $this->db->from('tutions t');
         $this->db->join('users u', 't.user_id=u.id');
         if(!empty($likearr))

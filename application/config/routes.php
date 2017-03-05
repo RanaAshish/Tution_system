@@ -54,6 +54,7 @@ $route['admin/tutions'] = 'admin/tution/manage_tution';
 $route['admin/tutions/(:any)'] = 'admin/tution/manage_tution/$1';
 $route['admin/api/tutions/(:any)'] = 'admin/tution/manage_tution/$1';
 $route['admin/tutions/(:any)/(:num)'] = 'admin/tution/manage_tution/$1/$2';
+$route['admin/tutions/(:any)/(:num)/(:num)'] = 'admin/tution/manage_tution/$1/$2/$3';
 
 $route['tution'] = 'tution/Branch';
 $route['tution/add'] = 'tution/Branch/add';
