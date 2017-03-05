@@ -42,13 +42,13 @@
                             </a>
                           </li>
                           <li>
-                            <a md-ink-ripple href="subjects">
+                            <a md-ink-ripple href="tution/student">
                               <i class="fa fa-users i-20"></i>
                               <span class="font-normal">Students</span>
                             </a>
                           </li>
                           <li>
-                            <a md-ink-ripple href="subjects">
+                            <a md-ink-ripple href="javascript:;">
                               <i class="fa fa-graduation-cap i-20"></i>
                               <span class="font-normal">Facultys</span>
                             </a>
@@ -60,7 +60,7 @@
                             </a>
                           </li>
                             <li>
-                            <a md-ink-ripple href="subjects">
+                            <a md-ink-ripple href="javascript:;">
                               <i class="fa fa-money i-20"></i>
                               <span class="font-normal">Fees</span>
                             </a>

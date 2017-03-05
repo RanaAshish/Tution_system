@@ -31,3 +31,7 @@ INSERT INTO `classes` (`id`, `name`, `branch_id`, `description`, `course_id`) VA
 (4, 'Bca Div 2', 8, 'desc', 7),
 (6, '11 A', 8, 'Desc', 12);
 
+@Ashish : 5-3-2017
+
+ALTER TABLE `students` CHANGE `parent_id` `parent_id` INT(11) NULL DEFAULT NULL COMMENT 'Temporary null as parent module is not included';
+ALTER TABLE `students` CHANGE `user_id` `user_id` INT(11) NULL COMMENT 'Allowing null as we are not going to manange student login now';
