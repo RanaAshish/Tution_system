@@ -1,0 +1,20 @@
+{
+  "name": "tution-management",
+  "authors": [
+    "Me\\Mikinj <mikinj-mistry@hotmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-ui-select": "^0.19.6"
+  }
+}

@@ -76,7 +76,7 @@
                     </small>
                 </span>
             </div>
-            <js-tree tree-data="scope" tree-model="courses"></js-tree>
+            <js-tree tree-data="scope" tree-model="courses" id="jsTree"></js-tree>
             <button type="submit" class="btn btn-success m-b waves-effect" ng-disabled="!form.$valid">Submit</button>
         </form>
       </div>
@@ -107,13 +107,16 @@
             $scope.class = {};
             $scope.classes = <?php echo json_encode($classes); ?>;
             $scope.courses = <?php echo json_encode($courses); ?>;
-            $scope.courses.push(
+            $scope.courses.push(    
                     {
                         id:0,
                         text:'Couses',
                         parent:'#',
                         state:{opened: true}
                     });
+            var jsTree = $.jstree.reference('#jsTree');
+            
+            console.log("$scope.courses:",jsTree);
             console.log("$scope.courses:",$scope.courses);
             $scope.jsonParse = function(str){
                 return JSON.parse(str);
