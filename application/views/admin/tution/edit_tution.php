@@ -193,8 +193,8 @@ app.controller('edit_controller', function ($scope,$filter,$http) {
     $scope.alerts = [];
     $scope.tution.contacts = [null];
     $scope.tution.emails = [null];
-    $scope.tution.emails = JSON.parse($scope.tution.email);
-    $scope.tution.contacts = JSON.parse($scope.tution.contact);
+    $scope.tution.emails = $scope.tution.email != 'null' ? JSON.parse($scope.tution.email) : [null];
+    $scope.tution.contacts = $scope.tution.contact != 'null' ? JSON.parse($scope.tution.contact) : [null];
     $scope.tution.established_year = new Date($scope.tution.establishment_year, 1,1);
     $scope.addContact = function () {
         $scope.tution.contacts.push('');
