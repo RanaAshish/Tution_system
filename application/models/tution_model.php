@@ -75,7 +75,7 @@ class tution_model extends CI_Model
     */
     public function get_branch_detial_by_class_id($id)
     {
-        $this->db->where('class_id', $id);
+        $this->db->where('tution_id', $id);
         return $this->db->get('branch')->result_array();
     }
     /*
