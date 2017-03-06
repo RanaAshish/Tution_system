@@ -58,7 +58,7 @@ $route['admin/tutions/(:any)/(:num)/(:num)'] = 'admin/tution/manage_tution/$1/$2
 
 $route['tution'] = 'tution/Branch';
 $route['tution/add'] = 'tution/Branch/add';
-$route['tution/branch/(:num)'] = 'tution/Classes/index/$id';
+$route['tution/branch/(:num)'] = 'tution/Classes/index/$1';
 
 
 $route['404'] = 'logout/page_not_found';

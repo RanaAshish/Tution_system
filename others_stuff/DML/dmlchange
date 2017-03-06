@@ -6,3 +6,28 @@ ALTER TABLE `tutions` CHANGE `is_delete` `is_delete` ENUM('0','1') NULL DEFAULT 
 @Mikinj: 3-3-2017	
 
 ALTER TABLE `course` CHANGE `name` `text` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
+
+@Mikinj: 5-3-2017
+
+ALTER TABLE `classes` CHANGE `description` `description` VARCHAR(255) NOT NULL;
+
+INSERT INTO `course` (`id`, `text`, `parent`, `type`, `description`) VALUES
+(1, 'BCA', 0, '1', ''),
+(2, 'FY-BCA', 1, '2', ''),
+(3, 'SY-BCA', 1, '2', ''),
+(4, 'TY-BCA', 1, '2', ''),
+(5, 'Semester-1', 2, '3', ''),
+(6, 'Semester-2', 2, '3', ''),
+(7, 'Semester-3', 3, '3', ''),
+(8, 'Semester-4', 3, '3', ''),
+(9, 'Semester-5', 4, '3', ''),
+(10, 'Semester-6', 4, '3', ''),
+(11, 'Higher Secondary', 0, '1', ''),
+(12, '11', 11, '2', ''),
+(13, '12', 11, '2', '');
+
+INSERT INTO `classes` (`id`, `name`, `branch_id`, `description`, `course_id`) VALUES
+(3, 'Bca Div 1', 8, 'DESC', 5),
+(4, 'Bca Div 2', 8, 'desc', 7),
+(6, '11 A', 8, 'Desc', 12);
+
