@@ -57,5 +57,8 @@
 <script src="assets/libs/jquery/jquery/dist/jquery.js"></script>
 <script src="assets/libs/jquery/bootstrap/dist/js/bootstrap.js"></script>
 <script src="assets/libs/jquery/waves/dist/waves.js"></script>
+<script src="assets/scripts/ui-form.js"></script>
+
+
 </body>
 </html>
