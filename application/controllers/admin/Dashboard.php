@@ -39,4 +39,8 @@ class Dashboard extends CI_Controller {
         $this->template->load('admin/Template', 'index', $this->data);
     }
 
+    public function manage_profile()
+    {
+        $this->template->load('admin/Template', 'admin/profile', $this->data);
+    }
 }
