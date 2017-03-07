@@ -59,5 +59,4 @@ class Classes extends Auth {
         echo json_encode($result);
         die();
     }
-    
 }

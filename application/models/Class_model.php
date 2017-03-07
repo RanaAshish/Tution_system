@@ -21,4 +21,17 @@ class Class_model extends CI_Model{
         $this->db->where('c.branch_id',$id);
         return $this->db->get()->result_array();
     }
+    
+    
+    /*
+     * get_classes_by_tution_id is used to fetch classes of particular tution
+     * 
+     * @params  int     $tution_id      specify id of the tution
+     * 
+     * Developed by "Ashish"
+     */
+    public function get_classes_by_tution_id($tution_id)
+    {
+        
+    }
 }
