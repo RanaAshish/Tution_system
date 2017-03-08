@@ -1,4 +1,4 @@
-<div class="box-cell" ng-app="tutionApp" ng-controller="tutionCtrl">
+<div class="box-cell" ng-app="tutionApp" ng-controller="tutionCtrl" ng-cloak="">
     <div class="box-inner padding">
         <div class="page-header-default">
             <div class="page-header-content">

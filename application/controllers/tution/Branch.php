@@ -24,29 +24,43 @@ class Branch extends Auth
     }
     
     public function add(){
+        $this->data['courses'] = json_encode($this->basic->selectByColumn('course','type',1));
         $this->template->load('tution/Template','tution/branch/add', $this->data);
     }
     
     public function addNewBranch(){
         $data = $this->input->post();
-        $data['tution_id'] = $_SESSION['user']['id'];
-        $data['establishment_year'] = $data['year'];
-        $data['contact'] = json_encode($data['contacts']);
-        $data['email'] = json_encode($data['emails']);
-        unset($data['contacts']);
-        unset($data['emails']);
-        unset($data['year']);
-        $result = $this->basic->insert("branch",$data);
-        $responce = array();
+        $branch = array(
+            "tution_id" => $_SESSION['user']['id'],
+            "establishment_year" => $data['year'],
+            "contact" => json_encode($data['contacts']),
+            "email" => json_encode($data['emails']),
+            "area" => $data['area'],
+            "latitude" => $data['latitude'],
+            "longitude" => $data['longitude'],
+            "name" => $data['name'],
+            "address" => $data['address'],
+            
+        );
+        $result = $this->basic->insert("branch",$branch);
         if($result != 0){
-            $responce['status']='true';
-            $responce['message']='';
-        }else{
-            $responce['status']='false';
-            $responce['message']='';
+            $branchCourse = array();
+            foreach ($data['courses'] as $key => $value) {
+                $branchCourse[$key]['course_id'] = $value;
+                $branchCourse[$key]['branch_id'] = $result;
+            }
+            $branchCourseResult = $this->basic->insert_batch("course_branch",$branchCourse);
+            $responce = array();
+            if($result != 0){
+                $responce['status']='true';
+                $responce['message']='';
+            }else{
+                $responce['status']='false';
+                $responce['message']='';
+            }
+            echo json_encode($responce);
+            die();
         }
-        echo json_encode($responce);
-        die();
     }
     
 }

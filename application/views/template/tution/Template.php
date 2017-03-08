@@ -37,6 +37,10 @@
     <link href="<?=base_url()?>bower_components/angular-ui-select/dist/select.css" rel="stylesheet" type="text/css"/>
     <script src="<?=base_url()?>bower_components/angular-ui-select/dist/select.min.js" type="text/javascript"></script>
     <script src="<?=base_url()?>bower_components/angular-ui-select/dist/select.js" type="text/javascript"></script>
+    
+    <!--google autocomplite-->
+    <link href="<?=base_url()?>bower_components/angular-google-places-autocomplete/dist/autocomplete.min.css" rel="stylesheet" type="text/css"/>
+    <script src="<?=base_url()?>bower_components/angular-google-places-autocomplete/dist/autocomplete.min.js" type="text/javascript"></script>
   </head>
   <body>
   <div id="spin"></div>

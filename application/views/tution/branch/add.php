@@ -1,4 +1,4 @@
-<div class="box-cell" ng-app="tutionApp" ng-controller="tutionCtrl">
+<div class="box-cell" ng-app="tutionApp" ng-controller="tutionCtrl" ng-cloak="">
     <div dismiss-on-timeout="2000" uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>
     <div class="box-inner padding">
         <div class="page-header-default">
@@ -32,7 +32,7 @@
                     </div>
                     <div class="form-group">
                         <label>Area</label>
-                        <input class="form-control" name="area" type="text" ng-model="branch.area" googleplace ng-required="true">
+                        <input class="form-control" g-places-autocomplete force-selection="true" name="area" type="text" ng-model="place" ng-required="true">
                         <span class="text-danger" ng-show="form.area.$touched && form.area.$invalid">
                             <small> 
                                 This field is required.                           
@@ -68,6 +68,20 @@
                         <span class="text-danger" ng-show="form.year.$touched && form.year.$invalid">
                             <small>          
                                 This field is required.
+                            </small>
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label>Courses</label>
+                        <ui-select multiple ng-model="branch.courses" theme="bootstrap" required name="courses">
+                            <ui-select-match placeholder="">{{$item.text}}</ui-select-match>
+                            <ui-select-choices repeat="course.id as course in courses | filter: $select.search">
+                                <h5>{{course.text}}</h5>
+                            </ui-select-choices>
+                        </ui-select>
+                        <span class="text-danger" ng-show="form.courses.$touched && form.courses.$invalid">
+                            <small>                                
+                                This field is required.                            
                             </small>
                         </span>
                     </div>
@@ -135,7 +149,7 @@ AIzaSyBFhy3EkQmrqLGnGgRx4K-DapTVtiF762I
 -->
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBFhy3EkQmrqLGnGgRx4K-DapTVtiF762I"></script>
 <script type="text/javascript">
-        var app = angular.module("tutionApp", ['ui.bootstrap']);
+        var app = angular.module("tutionApp", ['ui.bootstrap','ui.select','google.places']);
         app.config(['$compileProvider','$httpProvider',function($compileProvider,$httpProvider){
             $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|sms):/);
             $httpProvider.defaults.transformRequest = function (data) {
@@ -146,43 +160,14 @@ AIzaSyBFhy3EkQmrqLGnGgRx4K-DapTVtiF762I
             }
             $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
         }]);
-        app.directive('googleplace', function () {
-            return {
-                require: 'ngModel',
-                link: function (scope, element, attrs, model) {
-                    var options = {
-                        types: [],
-                        componentRestrictions: {country: "in"}
-
-                    };
-                    scope.gPlace = new google.maps.places.Autocomplete(element[0],
-                            options);
-                    google.maps.event.addListener(scope.gPlace, 'place_changed',
-                            function () {
-                                var geoComponents = scope.gPlace.getPlace();
-                                var latitude = geoComponents.geometry.location.lat();
-                                var longitude = geoComponents.geometry.location.lng();
-                                var addressComponents = geoComponents.address_components;
-                                scope.$apply(function () {
-                                    model.$setViewValue(element.val());
-                                    scope.gPlace = geoComponents.geometry;
-                                    console.log(element.val());
-                                    console.log("Latitude : " + latitude + "  Longitude : " + longitude);
-                                });
-                            });
-                }
-
-            };
-        })
         app.controller("tutionCtrl", function ($scope,$filter,$http) {
             console.log("tutionCtrl is called");
 
-            $scope.gPlace;
             $scope.alerts = [];
             $scope.branch = {};
             $scope.branch.contacts = [null];
             $scope.branch.emails = [null];
-
+            $scope.courses = <?php echo $courses; ?>;
             $scope.addContact = function () {
                 $scope.branch.contacts.push('');
             };
@@ -198,10 +183,10 @@ AIzaSyBFhy3EkQmrqLGnGgRx4K-DapTVtiF762I
             };
 
             $scope.addBranch = function(){
-                $scope.branch.latitude = $scope.gPlace.location.lat();
-                $scope.branch.longitude = $scope.gPlace.location.lng();
-//                                $scope.branch.contacts = JSON.stringify($scope.branch.contacts);
-//                                $scope.branch.emails = JSON.stringify($scope.branch.emails);
+                $scope.branch.latitude = $scope.place.geometry.location.lat;
+                $scope.branch.longitude = $scope.place.geometry.location.lng;
+                $scope.branch.area = $scope.place.formatted_address;
+                
                 $scope.branch.year = $filter('date')($scope.branch.year,"yyyy")
                 console.log("$scope.branch:",$scope.branch);
                 console.log("$scope.gPlace:",$scope.gPlace);
