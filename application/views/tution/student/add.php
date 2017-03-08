@@ -21,6 +21,22 @@
             </div>
             <div class="panel-body">
                 <form name="form" ng-submit="addStudent()">
+                    
+                    <div class="form-group">
+                        <label>Select Class</label>
+                        <ui-select ng-model="class" theme="bootstrap" required name="class" on-select="onClassSelect($item, $model)">
+                            <ui-select-match placeholder="Select class for student">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="class in classes| filter: $select.search">
+                                <!-- <h5>{{class.branch_name+" -> " + class.course_name + " -> " +class. name}}</h5>-->
+                                <h5>{{class.branch_name+" -> " + class.course_name + " -> " +class. name}}</h5>
+                            </ui-select-choices>
+                        </ui-select>
+                        <span class="text-danger" ng-show="form.class.$touched && form.class.$invalid">
+                            <small>                                
+                                Please select class of the student
+                            </small>
+                        </span>
+                    </div>
                     <div class="form-group">
                         <label>First name</label>
                         <input class="form-control" name="first_name" type="text" ng-model="student.first_name" ng-required="true">
@@ -108,7 +124,7 @@
     </div>
 </div>
 <script type="text/javascript">
-        var app = angular.module("tutionApp", ['ui.bootstrap']);
+        var app = angular.module("tutionApp", ['ui.bootstrap','ui.select']);
         app.config(['$compileProvider','$httpProvider',function($compileProvider,$httpProvider){
             $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|sms):/);
             $httpProvider.defaults.transformRequest = function (data) {
@@ -124,7 +140,14 @@
             $scope.student = {};
             $scope.student.contacts = [null];
             $scope.student.emails = [null];
-
+            $scope.class = {};
+            $scope.classes = <?php echo json_encode($classes); ?>;;
+            console.log($scope.classes);
+            
+            $scope.onClassSelect = function($item,$model){
+                $scope.class = $item;
+            };
+            
             $scope.addContact = function () {
                 $scope.student.contacts.push('');
             };
@@ -140,6 +163,7 @@
             };
 
             $scope.addStudent = function(){
+                $scope.student.class_id = $scope.class.id;
                 $http({
                     url:"<?php echo base_url()."tution/student/add_student"; ?>",
                     method:"POST",
@@ -148,9 +172,10 @@
                     console.log("data:",data)
                     if(data.status){
                         $scope.student = {};
+                        $scope.class = {};
                         $scope.student.contacts = [null];
                         $scope.student.emails = [null];
-                        $scope.form.$setUntouched()
+                        $scope.form.$setUntouched();
                         $scope.alerts.push({type:'success',msg: 'Student has added successfully'});
                     }else{
                         $scope.alerts.push({type:'danger',msg: 'There is some probem while inserting student.'});

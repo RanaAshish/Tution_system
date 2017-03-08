@@ -32,6 +32,9 @@ class Class_model extends CI_Model{
      */
     public function get_classes_by_tution_id($tution_id)
     {
-        
+        $this->db->select('c.id,c.name,b.name as branch_name,co.text as course_name');
+        $this->db->join('course co','c.course_id = co.id');
+        $this->db->join('branch b','b.id = c.branch_id and b.tution_id = '.$tution_id);
+        return $this->db->get('classes c')->result_array();
     }
 }
