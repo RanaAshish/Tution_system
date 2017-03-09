@@ -27,7 +27,7 @@ class Student_model extends CI_Model
             $this->db->join('course co','co.id = c.course_id');
             $this->db->join('class_students cs','cs.class_id = c.id and cs.student_id = s.id and cs.is_current = "1"');
             
-            $this->db->get('students s')->result_array();
+            return $this->db->get('students s')->result_array();
         }
         catch(Exception $e)
         {

@@ -37,7 +37,13 @@ class Login extends CI_Controller {
             $this->session->set_userdata("user", $data);
             if ($data['role_name'] == 'admin') {
                 redirect('admin');
-            } 
+            }
+            else if ($data['role_name'] == 'tution') 
+            {
+                $this->load->model('Tution_model');
+                $this->session->set_userdata("tution",$this->Tution_model->get_tution_info_by_user_id($this->session->user['id']));
+                redirect('tution');
+            }
             else {
                 redirect("login");
             }

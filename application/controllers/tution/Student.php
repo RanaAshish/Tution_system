@@ -28,7 +28,7 @@ class Student extends Auth
      */
     public function index()
     {
-        $this->data['students'] = $this->Student_model->get_students_by_tution_id($this->session->user['id']);
+        $this->data['students'] = $this->Student_model->get_students_by_tution_id($this->session->tution['id']);
         $this->template->load('tution/Template','tution/student/list', $this->data);
     }
     
@@ -39,7 +39,7 @@ class Student extends Auth
      */
     public function add()
     {
-        $this->data['classes'] = $this->Class_model->get_classes_by_tution_id($this->session->user['id']);
+        $this->data['classes'] = $this->Class_model->get_classes_by_tution_id($this->session->tution['id']);
         $this->template->load('tution/Template','tution/student/add', $this->data);
     }
 

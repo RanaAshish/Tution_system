@@ -24,10 +24,9 @@
                     
                     <div class="form-group">
                         <label>Select Class</label>
-                        <ui-select ng-model="class" theme="bootstrap" required name="class" on-select="onClassSelect($item, $model)">
+                        <ui-select ng-model="student.class" theme="bootstrap" required name="class" >
                             <ui-select-match placeholder="Select class for student">{{$select.selected.name}}</ui-select-match>
                             <ui-select-choices repeat="class in classes| filter: $select.search">
-                                <!-- <h5>{{class.branch_name+" -> " + class.course_name + " -> " +class. name}}</h5>-->
                                 <h5>{{class.branch_name+" -> " + class.course_name + " -> " +class. name}}</h5>
                             </ui-select-choices>
                         </ui-select>
@@ -140,14 +139,9 @@
             $scope.student = {};
             $scope.student.contacts = [null];
             $scope.student.emails = [null];
-            $scope.class = {};
             $scope.classes = <?php echo json_encode($classes); ?>;;
             console.log($scope.classes);
-            
-            $scope.onClassSelect = function($item,$model){
-                $scope.class = $item;
-            };
-            
+
             $scope.addContact = function () {
                 $scope.student.contacts.push('');
             };
@@ -163,7 +157,7 @@
             };
 
             $scope.addStudent = function(){
-                $scope.student.class_id = $scope.class.id;
+                $scope.student.class_id = $scope.student.class.id;
                 $http({
                     url:"<?php echo base_url()."tution/student/add_student"; ?>",
                     method:"POST",
@@ -172,7 +166,6 @@
                     console.log("data:",data)
                     if(data.status){
                         $scope.student = {};
-                        $scope.class = {};
                         $scope.student.contacts = [null];
                         $scope.student.emails = [null];
                         $scope.form.$setUntouched();

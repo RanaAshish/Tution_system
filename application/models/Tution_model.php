@@ -140,4 +140,28 @@ class tution_model extends CI_Model
         $this->db->join('branch b','b.tution_id = t.id and b.is_primary = "1"');
         return $this->db->get()->row_array();
     }
+    
+    /*
+     * get_tution_info_by_user_id returns tution information according to user_id
+     * 
+     * @params  $user_id    int     specify user id
+     * 
+     * @return  array    record of particular tution 
+     *          boolean, false; if record not found
+     * 
+     * Developed by "Ashish"
+     */
+    public function get_tution_info_by_user_id($user_id)
+    {
+        try
+        {
+            $this->db->select('t.id,t.tution_name,t.profile_image,t.cover_image');
+            $this->db->where('t.user_id',$user_id);
+            return $this->db->get('tutions t')->row_array();
+        }
+        catch(Exception $e)
+        {
+            return false;
+        }
+    }
 }
