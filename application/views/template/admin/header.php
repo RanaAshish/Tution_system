@@ -22,7 +22,13 @@
                   <div class="box-inner">
                     <div class="p hidden-foldblue" style="background-image:url(assets/images/bg.png); background-size:cover">
                       <div class="rounded w-64 bg-white inline pos-rlt">
-                        <img src="assets/images/user-profile.png" class="img-responsive rounded">
+                        <?php
+                          if(empty($this->session->user['profile_image']))
+                              $imgurl = 'assets/images/user-profile.png';
+                          else
+                            $imgurl = 'uploads/users/'.$this->session->user['profile_image'];
+                        ?>
+                        <img src="<?=$imgurl?>" class="img-responsive rounded">
                       </div>
                       <a class="block m-t-sm" ui-toggle-class="hide, show" target="#nav, #account">
                         <span class="block font-bold">Admin</span>

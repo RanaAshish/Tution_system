@@ -4,3 +4,7 @@ nbproject
 .idea/
 .idea/*
 
+*.php
+*.css
+*.jpeg
+*.png

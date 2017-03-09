@@ -35,3 +35,6 @@ INSERT INTO `classes` (`id`, `name`, `branch_id`, `description`, `course_id`) VA
 
 ALTER TABLE `students` CHANGE `parent_id` `parent_id` INT(11) NULL DEFAULT NULL COMMENT 'Temporary null as parent module is not included';
 ALTER TABLE `students` CHANGE `user_id` `user_id` INT(11) NULL COMMENT 'Allowing null as we are not going to manange student login now';
+
+@Siddharth : 09-03-2017
+ALTER TABLE `users` ADD `profile_image` VARCHAR(255) NULL AFTER `password`;

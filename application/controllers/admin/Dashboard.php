@@ -6,21 +6,6 @@ class Dashboard extends CI_Controller {
 
     var $data;
 
-    /**
-     * Index Page for this controller.
-     *
-     * Maps to the following URL
-     * 		http://example.com/index.php/welcome
-     * 	- or -
-     * 		http://example.com/index.php/welcome/index
-     * 	- or -
-     * Since this controller is set as the default controller in
-     * config/routes.php, it's displayed at http://example.com/
-     *
-     * So any other public methods not prefixed with an underscore will
-     * map to /index.php/welcome/<method_name>
-     * @see https://codeigniter.com/user_guide/general/urls.html
-     */
     public function __construct() {
         parent::__construct();
         if ($this->session->user) {
@@ -41,6 +26,25 @@ class Dashboard extends CI_Controller {
 
     public function manage_profile()
     {
+        if($this->input->post())
+        {
+            $this->load->library('crop', [
+                    isset($_POST['avatar_src']) ? $_POST['avatar_src'] : null,
+                    isset($_POST['avatar_data']) ? $_POST['avatar_data'] : null,
+                    isset($_FILES['avatar_file']) ? $_FILES['avatar_file'] : null
+                ]);
+            $response = array(
+              'state'  => 200,
+              'message' => $this->crop-> getMsg(),
+              'result' => $this->crop-> getResult()
+            );
+            $row = $this->session->user;
+            $row['profile_image'] = $this->crop->getFilename();
+            $this->session->set_userdata('user', $row);
+            $this->basic->update('users', ['profile_image' => $this->crop->getFilename()], ['id' => $this->session->user['id']]);
+            echo json_encode($response);
+            die;
+        }
         $this->template->load('admin/Template', 'admin/profile', $this->data);
     }
 }

@@ -20,7 +20,7 @@
 
     this.$avatarView = this.$container.find('.avatar-view');
     this.$avatar = this.$avatarView.find('img');
-    this.$avatarModal = this.$container.find('#avatar-modal');
+    this.$avatarModal = $('#avatar-modal');
     this.$loading = this.$container.find('.loading');
 
     this.$avatarForm = this.$avatarModal.find('.avatar-form');
@@ -248,6 +248,8 @@
 
         success: function (data) {
           _this.submitDone(data);
+          $('#bg-profile').css({'background' : 'url('+data.result+') center center'});
+          $('.pos-rlt img').attr('src', data.result);          
         },
 
         error: function (XMLHttpRequest, textStatus, errorThrown) {
