@@ -31,7 +31,7 @@
                             </ui-select-choices>
                         </ui-select>
                         <span class="text-danger" ng-show="form.class.$touched && form.class.$invalid">
-                            <small>                                
+                            <small>
                                 Please select class of the student
                             </small>
                         </span>
