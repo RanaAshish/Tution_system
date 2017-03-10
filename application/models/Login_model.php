@@ -3,7 +3,7 @@
 class login_model extends CI_Model {
 
     public function checkLogin($username, $password) {
-        $this->db->select("u.id,u.username,r.role_name");
+        $this->db->select("u.id,u.username,r.role_name,u.profile_image,u.password");
         $this->db->from("users u");
         $this->db->join("role r", 'r.id = u.role_id', 'left');
         $this->db->where("username", $username);

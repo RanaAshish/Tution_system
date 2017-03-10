@@ -3,6 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['admin'] = 'admin/Dashboard';
 $route['admin/profile'] = 'admin/Dashboard/manage_profile';
+$route['admin/checkpassword'] = 'admin/Dashboard/checkPassword';
+$route['admin/changepassword'] = 'admin/Dashboard/change_password';
 $route['admin/tutions'] = 'admin/tution/manage_tution';
 $route['admin/tutions/(:any)'] = 'admin/tution/manage_tution/$1';
 $route['admin/api/tutions/(:any)'] = 'admin/tution/manage_tution/$1';

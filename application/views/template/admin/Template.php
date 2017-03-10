@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="assets/libs/jquery/bootstrap/dist/css/bootstrap.css" type="text/css" />
         <link rel="stylesheet" href="assets/styles/dataTables.bootstrap.min.css" type="text/css" />
         <link rel="stylesheet" href="assets/styles/Admin/cropper/cropper.min.css" type="text/css" />
+        <link rel="stylesheet" href="assets/styles/Admin/cropper/main.css" type="text/css" />
         <link rel="stylesheet" href="assets/styles/font.css" type="text/css" />
         <link rel="stylesheet" href="assets/styles/app.css" type="text/css" />
         <link rel="stylesheet" href="assets/styles/custom.css" type="text/css"/>
