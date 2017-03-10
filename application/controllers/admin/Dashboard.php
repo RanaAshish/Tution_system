@@ -47,4 +47,19 @@ class Dashboard extends CI_Controller {
         }
         $this->template->load('admin/Template', 'admin/profile', $this->data);
     }
+    // Check entered password has been correct or not
+    public function checkPassword()
+    {
+        if($this->input->post('password') != $this->session->user['password'])
+            echo json_encode(['status' => 200, 'result' => false, 'error' => 'You have enterd wrong password.']);
+        else
+            echo json_encode(['status' => 200, 'result' => true ,'error' => '']);
+        die;
+    }
+    // Change user password
+    public function change_password()
+    {
+        $this->basic->update('users', ['password' => $this->input->post('conf')], ['id' => $this->session->user['id']]);
+        redirect('logout');
+    }
 }

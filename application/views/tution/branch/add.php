@@ -23,7 +23,7 @@
                     <div class="form-group">
                         <label>Branch name</label>
                         <input class="form-control" name="name" type="text" ng-model="branch.name" ng-required="true">
-                        <span class="text-danger" ng-show="form.name.$touched && form.name.$invalid" class="text-danger">
+                        <span class="text-danger" ng-show="form.name.$touched && form.name.$invalid" >
                             <small>
                                 This field is required.                            
                             </small>
