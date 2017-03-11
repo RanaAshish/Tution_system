@@ -72,7 +72,7 @@
       </div>
     </div>
   </div>
-</div>
+
 
 <script src="assets/scripts/Admin/cropper/cropper.min.js"></script>
 <script src="assets/scripts/Admin/cropper/main.js"></script>
@@ -83,7 +83,7 @@
         <div class="modal-content">
           <form class="avatar-form" action="admin/profile" enctype="multipart/form-data" method="post">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <button type="button" class="close" ng-click="closeModel()">&times;</button>
               <h4 class="modal-title" id="avatar-modal-label">Change Avatar</h4>
             </div>
             <div class="modal-body">
@@ -122,6 +122,7 @@
       </div>
     </div>
   <!-- /.modal -->
+  </div>
 <script type="text/javascript">
 var app = angular.module('tutionApp', ['ui.bootstrap']);
 app.config(['$compileProvider','$httpProvider',function($compileProvider,$httpProvider){
@@ -152,5 +153,11 @@ app.controller('profileCtrl', function($scope, $http){
     $scope.closeAlert = function(index) {
         $scope.alerts.splice(index, 1);
     };
+    $scope.closeModel = function()
+    {
+      console.log('close model');
+      $('#avatar-modal').modal('hide');
+      $('[name="avatar_file"]').val('');
+    }
 });
 </script>
