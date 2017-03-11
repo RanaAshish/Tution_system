@@ -62,4 +62,5 @@ class Dashboard extends CI_Controller {
         $this->basic->update('users', ['password' => $this->input->post('conf')], ['id' => $this->session->user['id']]);
         redirect('logout');
     }
+    
 }

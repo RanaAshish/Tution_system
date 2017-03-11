@@ -27,9 +27,7 @@
               <div id="crop-avatar"> 
                 <a href="javascript:;" class="w-xs inline">
                   <div class="avatar-view" title="Change the avatar">
-                    
                     <img src="<?=$imgurl?>" class="img-circle img-responsive">
-
                   </div>
                 </a>
 

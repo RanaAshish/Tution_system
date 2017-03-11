@@ -12,7 +12,6 @@
         <link rel="stylesheet" href="assets/libs/jquery/waves/dist/waves.css" type="text/css" />
         <link rel="stylesheet" href="assets/styles/material-design-icons.css" type="text/css" />
         <!--<link rel="stylesheet" href="assets/styles/dataTables.min.css" type="text/css" />-->
-
         <link rel="stylesheet" href="assets/libs/jquery/bootstrap/dist/css/bootstrap.css" type="text/css" />
         <link rel="stylesheet" href="assets/styles/dataTables.bootstrap.min.css" type="text/css" />
         <link rel="stylesheet" href="assets/styles/Admin/cropper/cropper.min.css" type="text/css" />
