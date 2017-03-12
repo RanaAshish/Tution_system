@@ -63,7 +63,7 @@
                 <div class="form-group">
                   <label class="control-label">New Password</label>
                   <input type="password" name="new" class="form-control" ng-required="true" ng-model="newpass">
-                  <span class="text-danger" ng-show="change_passwd.new.$dirty && change_passwd.new.$invalid">
+                  <span class="text-danger" ng-show="change_passwd.new.$touched && change_passwd.new.$invalid">
                     <span ng-show="change_passwd.new.$error.required"><small>This field is required.</small></span>
                   </span>
                   <span class="text-danger" ng-show="err.curr != null"><small>Please enter new password different then current password.</small></span>
@@ -71,7 +71,7 @@
                 <div class="form-group">
                   <label class="control-label">Confirm Password</label>
                   <input type="password" name="conf" class="form-control" ng-required="true" ng-model="confpass">
-                  <span class="text-danger" ng-show="change_passwd.conf.$dirty && change_passwd.conf.$invalid">
+                  <span class="text-danger" ng-show="change_passwd.conf.$touched && change_passwd.conf.$invalid">
                     <span ng-show="change_passwd.conf.$error.required"><small>This field is required.</small></span>
                   </span>
                   <span class="text-danger" ng-show="confpass != null && newpass != confpass"><small>Please enter correct confirm password.</small></span>
@@ -79,7 +79,7 @@
                 <div class="form-group">
                   <label class="control-label">Current Password</label>
                   <input type="password" name="exist" class="form-control" ng-required="true" ng-model="existing" ng-blur="checkPassword()">
-                  <span class="text-danger" ng-show="change_passwd.exist.$dirty && change_passwd.exist.$invalid">
+                  <span class="text-danger" ng-show="change_passwd.exist.$touched && change_passwd.exist.$invalid">
                     <span ng-show="change_passwd.exist.$error.required"><small>This field is required.</small></span>
                   </span>
                   
@@ -190,7 +190,10 @@ app.controller('profileCtrl', function($scope, $http){
           $http.post('admin/changepassword',{conf : $scope.confpass}).then(function(res){
               if(res.data.status == 200 && res.data.result == true)
               {
-                window.location.href = window.location.href;
+                $scope.alerts.push({type:'success', 'msg':res.data.msg});
+                $scope.change_passwd.$setUntouched();
+                $scope.existing =  $scope.newpass = $scope.confpass = ''; 
+                $scope.err = {};
               }
           });
       }

@@ -64,7 +64,7 @@
                             <div class="form-group has-feedback" ng-class="(registration_form.area.$valid) ? 'has-success': (registration_form.area.$dirty)?'has-error':''">
                                 <label class="col-sm-2 control-label">Area :</label>
                                 <div class="col-sm-8">
-                                    <input class="form-control" name="area" type="text" ng-model="tution.area" googleplace ng-required="true">
+                                    <input class="form-control" name="area" type="text" ng-model="tution.area" g-places-autocomplete force-selection="true" ng-required="true">
                                     <span class="text-danger" ng-show="registration_form.area.$touched && form.area.$invalid">
                                         <small> 
                                             This field is required.                           
@@ -140,7 +140,7 @@ AIzaSyBFhy3EkQmrqLGnGgRx4K-DapTVtiF762I
 -->
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBFhy3EkQmrqLGnGgRx4K-DapTVtiF762I"></script>
 <script type="text/javascript" >
-var app = angular.module('tution_app', ['ui.bootstrap']);
+var app = angular.module('tution_app', ['ui.bootstrap','google.places']);
 app.config(['$compileProvider','$httpProvider',function($compileProvider,$httpProvider){
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|sms):/);
     $httpProvider.defaults.transformRequest = function (data) {
@@ -151,34 +151,6 @@ app.config(['$compileProvider','$httpProvider',function($compileProvider,$httpPr
     }
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
 }]);
-app.directive('googleplace', function () {
-    return {
-        require: 'ngModel',
-        link: function (scope, element, attrs, model) {
-            var options = {
-                types: [],
-                componentRestrictions: {country: "in"}
-
-            };
-            scope.gPlace = new google.maps.places.Autocomplete(element[0],
-                    options);
-            google.maps.event.addListener(scope.gPlace, 'place_changed',
-                    function () {
-                        var geoComponents = scope.gPlace.getPlace();
-                        var latitude = geoComponents.geometry.location.lat();
-                        var longitude = geoComponents.geometry.location.lng();
-                        var addressComponents = geoComponents.address_components;
-                        scope.$apply(function () {
-                            model.$setViewValue(element.val());
-                            scope.gPlace = geoComponents.geometry;
-                            console.log(element.val());
-                            console.log("Latitude : " + latitude + "  Longitude : " + longitude);
-                        });
-                    });
-        }
-
-    };
-})
 app.controller('registration_controller', function ($scope,$filter,$http) {
     //For datepicker
     $scope.isOpen = false;
@@ -203,8 +175,9 @@ app.controller('registration_controller', function ($scope,$filter,$http) {
     };
     $scope.addTution = function()
     {
-        $scope.tution.latitude = $scope.gPlace.location.lat();
-        $scope.tution.longitude = $scope.gPlace.location.lng();
+        $scope.tution.latitude = $scope.tution.area.geometry.location.lat;
+        $scope.tution.longitude = $scope.tution.area.geometry.location.lng;
+        $scope.tution.area = $scope.tution.area.formatted_address;
         $scope.tution.established_year = $filter('date')($scope.tution.established_year, 'yyyy');
         $http.post('<?= base_url('admin/tutions/add')?>',$scope.tution).then(function(res){
             if(res.status){

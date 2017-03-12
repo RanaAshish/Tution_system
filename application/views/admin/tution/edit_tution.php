@@ -67,7 +67,7 @@
                             <div class="form-group has-feedback" ng-class="(registration_form.area.$valid) ? 'has-success': (registration_form.area.$dirty)?'has-error':''">
                                 <label class="col-sm-2 control-label">Area :</label>
                                 <div class="col-sm-8">
-                                    <input class="form-control" name="area" type="text" ng-model="tution.area" googleplace ng-required="true">
+                                    <input class="form-control" name="area" type="text" ng-model="tution.area" g-places-autocomplete force-selection="true" ng-required="true">
                                     <span class="text-danger" ng-show="registration_form.area.$touched && form.area.$invalid">
                                         <small> 
                                             This field is required.                           
@@ -144,7 +144,7 @@ AIzaSyBFhy3EkQmrqLGnGgRx4K-DapTVtiF762I
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBFhy3EkQmrqLGnGgRx4K-DapTVtiF762I"></script>
 <script type="text/javascript" >
 var tution_detail = <?php echo json_encode($tution_info); ?>;
-var app = angular.module('tution_app', ['ui.bootstrap']);
+var app = angular.module('tution_app', ['ui.bootstrap','google.places']);
 app.config(['$compileProvider','$httpProvider',function($compileProvider,$httpProvider){
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|sms):/);
     $httpProvider.defaults.transformRequest = function (data) {
@@ -155,34 +155,6 @@ app.config(['$compileProvider','$httpProvider',function($compileProvider,$httpPr
     }
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
 }]);
-app.directive('googleplace', function () {
-    return {
-        require: 'ngModel',
-        link: function (scope, element, attrs, model) {
-            var options = {
-                types: [],
-                componentRestrictions: {country: "in"}
-
-            };
-            scope.gPlace = new google.maps.places.Autocomplete(element[0],
-                    options);
-            google.maps.event.addListener(scope.gPlace, 'place_changed',
-                    function () {
-                        var geoComponents = scope.gPlace.getPlace();
-                        var latitude = geoComponents.geometry.location.lat();
-                        var longitude = geoComponents.geometry.location.lng();
-                        var addressComponents = geoComponents.address_components;
-                        scope.$apply(function () {
-                            model.$setViewValue(element.val());
-                            scope.gPlace = geoComponents.geometry;
-                            console.log(element.val());
-                            console.log("Latitude : " + latitude + "  Longitude : " + longitude);
-                        });
-                    });
-        }
-
-    };
-})
 app.controller('edit_controller', function ($scope,$filter,$http) {
     //For datepicker
     $scope.isOpen = false;

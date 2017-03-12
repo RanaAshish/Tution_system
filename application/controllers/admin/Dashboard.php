@@ -63,7 +63,6 @@ class Dashboard extends CI_Controller {
         $row = $this->session->user;
         $row['password'] = $this->input->post('conf');
         $this->session->set_userdata('user', $row);
-        $this->session->set_flashdata('succ', 'Your password has been changed successfully.');
         echo json_encode(['status' => 200, 'result' => true, 'msg' => 'Your password has been changed successfully.']);
         die;
     }
