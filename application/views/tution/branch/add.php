@@ -200,6 +200,7 @@ AIzaSyBFhy3EkQmrqLGnGgRx4K-DapTVtiF762I
                         $scope.branch = {};
                         $scope.branch.contacts = [null];
                         $scope.branch.emails = [null];
+                        $scope.place = {};
                         $scope.form.$setUntouched()
                         $scope.alerts.push({type:'success',msg: 'Your Branch is successfully inserted'});
                     }else{

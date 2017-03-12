@@ -14,7 +14,6 @@
     <!--<link rel="stylesheet" href="<?=base_url()?>assets/styles/dataTables.min.css" type="text/css" />-->
     
     <link rel="stylesheet" href="<?=base_url()?>assets/libs/jquery/bootstrap/dist/css/bootstrap.css" type="text/css" />
-    <link rel="stylesheet" href="<?=base_url()?>assets/styles/dataTables.bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="<?=base_url()?>assets/styles/font.css" type="text/css" />
     <link rel="stylesheet" href="<?=base_url()?>assets/styles/app.css" type="text/css" />
 
@@ -43,6 +42,7 @@
     <script src="<?=base_url()?>bower_components/angular-google-places-autocomplete/dist/autocomplete.min.js" type="text/javascript"></script>
     
     <!--datatable-->
+    <link href="<?=base_url()?>bower_components/datatables/media/css/jquery.dataTables.css" rel="stylesheet" type="text/css"/>
     <link href="<?=base_url()?>bower_components/angular-datatables/dist/css/angular-datatables.min.css" rel="stylesheet" type="text/css"/>
     <script src="<?=base_url()?>bower_components/datatables/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
     <script src="<?=base_url()?>bower_components/angular-datatables/dist/angular-datatables.min.js" type="text/javascript"></script>
