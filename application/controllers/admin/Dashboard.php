@@ -51,7 +51,7 @@ class Dashboard extends CI_Controller {
     public function checkPassword()
     {
         if($this->input->post('password') != $this->session->user['password'])
-            echo json_encode(['status' => 200, 'result' => false, 'error' => 'You have enterd wrong password.']);
+            echo json_encode(['status' => 200, 'result' => false, 'error' => 'You have enterd wrong current password.']);
         else
             echo json_encode(['status' => 200, 'result' => true ,'error' => '']);
         die;
@@ -60,7 +60,12 @@ class Dashboard extends CI_Controller {
     public function change_password()
     {
         $this->basic->update('users', ['password' => $this->input->post('conf')], ['id' => $this->session->user['id']]);
-        redirect('logout');
+        $row = $this->session->user;
+        $row['password'] = $this->input->post('conf');
+        $this->session->set_userdata('user', $row);
+        $this->session->set_flashdata('succ', 'Your password has been changed successfully.');
+        echo json_encode(['status' => 200, 'result' => true, 'msg' => 'Your password has been changed successfully.']);
+        die;
     }
     
 }

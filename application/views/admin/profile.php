@@ -45,25 +45,44 @@
         </div>
       </div>
       <div class="col-sm-12">
+        <?php
+          if($this->session->flashdata('succ') != null)
+          {
+        ?>
+            <div class="alert alert-success alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <?=$this->session->flashdata('succ')?>
+            </div>
+        <?php
+          }
+        ?>
         <div dismiss-on-timeout="2000" uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>
         <div class="panel panel-card">
-          <form method="post" name="change_passwd" action="admin/changepassword">
+          <form method="post" name="change_passwd"  ng-submit="changePassword(change_passwd)" >
             <div class="panel-body">
-                <div class="form-group">
-                  <label class="control-label">Current Password</label>
-                  <input type="password" name="exist" class="form-control" ng-required="true" ng-model="existing" ng-blur="checkPassword()">
-                  <span class="text-danger" ng-show="change_passwd.exist.$touched && change_passwd.exist.$invalid"><small>This field is required.</small></span>
-                </div>
                 <div class="form-group">
                   <label class="control-label">New Password</label>
                   <input type="password" name="new" class="form-control" ng-required="true" ng-model="newpass">
-                  <span class="text-danger" ng-show="change_passwd.new.$touched && change_passwd.new.$invalid"><small>This field is required.</small></span>
+                  <span class="text-danger" ng-show="change_passwd.new.$dirty && change_passwd.new.$invalid">
+                    <span ng-show="change_passwd.new.$error.required"><small>This field is required.</small></span>
+                  </span>
+                  <span class="text-danger" ng-show="err.curr != null"><small>Please enter new password different then current password.</small></span>
                 </div>
                 <div class="form-group">
                   <label class="control-label">Confirm Password</label>
                   <input type="password" name="conf" class="form-control" ng-required="true" ng-model="confpass">
-                  <span class="text-danger" ng-show="change_passwd.conf.$touched && change_passwd.conf.$invalid"><small>This field is required.</small></span>
+                  <span class="text-danger" ng-show="change_passwd.conf.$dirty && change_passwd.conf.$invalid">
+                    <span ng-show="change_passwd.conf.$error.required"><small>This field is required.</small></span>
+                  </span>
                   <span class="text-danger" ng-show="confpass != null && newpass != confpass"><small>Please enter correct confirm password.</small></span>
+                </div>
+                <div class="form-group">
+                  <label class="control-label">Current Password</label>
+                  <input type="password" name="exist" class="form-control" ng-required="true" ng-model="existing" ng-blur="checkPassword()">
+                  <span class="text-danger" ng-show="change_passwd.exist.$dirty && change_passwd.exist.$invalid">
+                    <span ng-show="change_passwd.exist.$error.required"><small>This field is required.</small></span>
+                  </span>
+                  
                 </div>
                 <button class="btn btn-primary">Change</button>
             </div>
@@ -139,13 +158,39 @@ app.controller('profileCtrl', function($scope, $http){
     $scope.alerts = [];
     $scope.checkPassword = function()
     {
-      if($scope.existing != null)
+      if($scope.existing != null && $scope.existing != '')
       {
           $http.post('admin/checkpassword', {password : $scope.existing}).then(function(res){
               if(res.data.status == 200 && res.data.result == false)
               {
                 $scope.alerts.push({type : 'danger', msg : res.data.error});
                 $scope.existing =  $scope.newpass = $scope.confpass = ''; 
+              }
+          });
+      }
+    }
+    $scope.err = {};
+    $scope.changePassword = function(form)
+    {
+      if(!form.$valid)
+      {
+        return false;
+      }
+      if($scope.confpass != $scope.newpass)
+      {
+        return false;
+      }
+      if($scope.newpass == $scope.existing)
+      {
+        $scope.err.curr = 'Please enter new password different then current password.';
+        return false;
+      }
+      if(form.$valid && $scope.err != null)
+      {
+          $http.post('admin/changepassword',{conf : $scope.confpass}).then(function(res){
+              if(res.data.status == 200 && res.data.result == true)
+              {
+                window.location.href = window.location.href;
               }
           });
       }
