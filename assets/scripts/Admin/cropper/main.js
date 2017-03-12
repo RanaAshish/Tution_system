@@ -202,6 +202,7 @@
         this.$img.cropper({
           aspectRatio: 1,
           preview: this.$avatarPreview.selector,
+          viewMode : 1,
           crop: function (e) {
             var json = [
                   '{"x":' + e.x,
@@ -298,7 +299,7 @@
     },
 
     submitFail: function (msg) {
-      this.alert(msg);
+      this.alert('You should upload image either jpeg|jpeg|png|gif.');
     },
 
     submitEnd: function () {
