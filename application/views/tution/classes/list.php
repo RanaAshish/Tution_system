@@ -25,7 +25,7 @@
             </div>
             
             <div class="table-responsive">
-                <table class="table table-bordered bg-white">
+                <table class="table table-bordered bg-white" datatable="ng">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -133,7 +133,7 @@
 
 
 <script type="text/javascript">
-        var app = angular.module("tutionApp", ['ui.bootstrap','jsTree.directive','ui.select']);
+        var app = angular.module("tutionApp", ['ui.bootstrap','jsTree.directive','ui.select','datatables']);
         app.config(['$compileProvider','$httpProvider',function($compileProvider,$httpProvider){
             $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|sms):/);
             $httpProvider.defaults.transformRequest = function (data) {
