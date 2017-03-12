@@ -20,7 +20,7 @@
               <div class="box-row">
                 <div class="box-cell scrollable hover">
                   <div class="box-inner">
-                    <div class="p hidden-foldblue" style="background-image:url(assets/images/bg.png); background-size:cover">
+                    <div class="p hidden-foldblue blue-50" style="background-image:url(assets/images/bg.png); background-size:cover">
                       <div class="rounded w-64 bg-white inline pos-rlt">
                         <?php
                           if(empty($this->session->user['profile_image']))

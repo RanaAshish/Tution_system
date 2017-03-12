@@ -89,7 +89,7 @@
     <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
-          <form class="avatar-form" action="admin/profile" enctype="multipart/form-data" method="post">
+          <form class="avatar-form" action="tution/profile" enctype="multipart/form-data" method="post">
             <div class="modal-header">
               <button type="button" class="close" ng-click="closeModel()">&times;</button>
               <h4 class="modal-title" id="avatar-modal-label">Change Avatar</h4>
@@ -149,7 +149,7 @@ app.controller('profileCtrl', function($scope, $http){
     {
       if($scope.existing != null && $scope.existing != '')
       {
-          $http.post('admin/checkpassword', {password : $scope.existing}).then(function(res){
+          $http.post('tution/checkpassword', {password : $scope.existing}).then(function(res){
               if(res.data.status == 200 && res.data.result == false)
               {
                 $scope.alerts.push({type : 'danger', msg : res.data.error});
@@ -176,7 +176,7 @@ app.controller('profileCtrl', function($scope, $http){
       }
       if(form.$valid && $scope.err != null)
       {
-          $http.post('admin/changepassword',{conf : $scope.confpass}).then(function(res){
+          $http.post('tution/changepassword',{conf : $scope.confpass}).then(function(res){
               if(res.data.status == 200 && res.data.result == true)
               {
                 $scope.alerts.push({type:'success', 'msg':res.data.msg});

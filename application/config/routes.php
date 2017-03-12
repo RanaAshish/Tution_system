@@ -11,6 +11,9 @@ $route['admin/api/tutions/(:any)'] = 'admin/tution/manage_tution/$1';
 $route['admin/tutions/(:any)/(:num)'] = 'admin/tution/manage_tution/$1/$2';
 $route['admin/tutions/(:any)/(:num)/(:num)'] = 'admin/tution/manage_tution/$1/$2/$3';
 $route['tution'] = 'tution/Branch';
+$route['tution/profile'] = 'Dashboard/manage_profile';
+$route['tution/checkpassword'] = 'Dashboard/checkPassword';
+$route['tution/changepassword'] = 'Dashboard/change_password';
 $route['tution/add'] = 'tution/Branch/add';
 $route['tution/branch/(:num)'] = 'tution/Classes/index/$1';
 

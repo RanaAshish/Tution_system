@@ -14,6 +14,8 @@
     <!--<link rel="stylesheet" href="<?=base_url()?>assets/styles/dataTables.min.css" type="text/css" />-->
     
     <link rel="stylesheet" href="<?=base_url()?>assets/libs/jquery/bootstrap/dist/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="<?=base_url()?>assets/styles/Admin/cropper/cropper.min.css" type="text/css" />
+    <link rel="stylesheet" href="<?=base_url()?>assets/styles/Admin/cropper/main.css" type="text/css" />
     <link rel="stylesheet" href="<?=base_url()?>assets/styles/font.css" type="text/css" />
     <link rel="stylesheet" href="<?=base_url()?>assets/styles/app.css" type="text/css" />
 

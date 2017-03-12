@@ -20,17 +20,23 @@
               <div class="box-row">
                 <div class="box-cell scrollable hover">
                   <div class="box-inner">
-                    <div class="p hidden-foldblue" style="background-image:url(assets/images/bg.png); background-size:cover">
+                    <div class="p hidden-foldblue blue-50" style="background-image:url(assets/images/bg.png); background-size:cover">
                       <div class="rounded w-64 bg-white inline pos-rlt">
-                        <img src="assets/images/a0.jpg" class="img-responsive rounded">
+                        <?php
+                          if(empty($this->session->user['profile_image']))
+                              $imgurl = 'assets/images/user-profile.png';
+                          else
+                            $imgurl = 'uploads/users/'.$this->session->user['profile_image'];
+                        ?>
+                        <img src="<?=$imgurl?>" class="img-responsive rounded">
                       </div>
                       <a class="block m-t-sm" ui-toggle-class="hide, show" target="#nav, #account">
-                        <span class="block font-bold">Admin</span>
+                        <span class="block font-bold"><?=$this->session->user['username']?></span>
                         <span class="pull-right auto">
                           <i class="fa inline fa-caret-down"></i>
                           <i class="fa none fa-caret-up"></i>
                         </span>
-						<?php echo $user['username'] ?>
+						          <?php echo $this->session->user['username'] ?>
                     </div>
                     <div id="nav">
                       <nav ui-nav>
@@ -72,15 +78,9 @@
                       <nav>
                         <ul class="nav">
                           <li>
-                            <a md-ink-ripple href="page.profile.html">
+                            <a md-ink-ripple href="tution/profile">
                               <i class="icon mdi-action-perm-contact-cal i-20"></i>
                               <span>My Profile</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a md-ink-ripple href="page.settings.html">
-                              <i class="icon mdi-action-settings i-20"></i>
-                              <span>Settings</span>
                             </a>
                           </li>
                           <li>
@@ -89,32 +89,12 @@
                               <span>Logout</span>
                             </a>
                           </li>
-                          <li class="m-v-sm b-b b"></li>
-                          <li>
-                            <div class="nav-item" ui-toggle-class="folded" target="#aside">
-                              <label class="md-check">
-                                <input type="checkbox">
-                                <i class="purple no-icon"></i>
-                                <span class="hidden-folded">Folded aside</span>
-                              </label>
-                            </div>
-                          </li>
                         </ul>
                       </nav>
                     </div>
                   </div>
                 </div>
               </div>
-              <nav>
-                <ul class="nav b-t b">
-                  <li>
-                    <a href="http://themeforest.net/item/materil-responsive-admin-dashboard-template/11062969" target="_blank" md-ink-ripple>
-                      <i class="icon mdi-action-help i-20"></i>
-                      <span>Help &amp; Feedback</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
             </div>
           </div>
         </aside>
