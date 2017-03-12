@@ -182,10 +182,11 @@ app.controller('edit_controller', function ($scope,$filter,$http) {
     };
     $scope.editTution = function()
     {
-        if($scope.gPlace.hasOwnProperty('location'))
+        if($scope.tution.area.hasOwnProperty('geometry'))
         {
-            $scope.tution.latitude = $scope.gPlace.location.lat();
-            $scope.tution.longitude = $scope.gPlace.location.lng();
+           $scope.tution.latitude = $scope.tution.area.geometry.location.lat;
+            $scope.tution.longitude = $scope.tution.area.geometry.location.lng;
+            $scope.tution.area = $scope.tution.area.formatted_address;
         }
         $scope.tution.established_year = $filter('date')($scope.tution.established_year, 'yyyy');
         $http.post('<?= base_url('admin/tutions/edit/'.$tution_info['id'])?>',$scope.tution).then(function(res){
