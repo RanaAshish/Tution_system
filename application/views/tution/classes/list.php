@@ -39,7 +39,10 @@
                             <td><a ng-href="classes/{{class.id}}">{{class.name}}</a></td>
                             <td>{{class.level2}} <span class="fa fa-arrow-right"></span> {{class.level3}}</td>
                             <td>{{class.description}}</td>
-                            <td></td>
+                            <td>
+                                <button class="btn btn-info btn-xs"><i class="fa fa-pencil"></i></button>
+                                <button class="btn btn-info btn-xs"><i class="fa fa-trash-o"></i></button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

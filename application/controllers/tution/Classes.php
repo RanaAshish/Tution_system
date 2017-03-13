@@ -17,12 +17,13 @@ class Classes extends Auth {
     public function __construct() {
         parent::__construct();   
         $this->load->model('Class_model');
+        $this->load->model('Course_model');
     }
     
     public function index($id){
         $this->data['classes'] = $this->Class_model->getClassesByBrnachId($id);
         $this->data['courses'] = $this->basic->select('course');
-        $this->data['level1'] = $this->basic->selectByColumn('course','type',1);
+        $this->data['level1'] = $this->Course_model->getCourseByBranch($id);
         $this->data['branchId'] = $id;
         $this->template->load('tution/Template','tution/classes/list', $this->data);
     }
