@@ -22,7 +22,7 @@
                     <i class="fa fa-plus"></i>Add
                 </a>
             </div>
-            
+
             <div class="table-responsive">
                 <table class="table table-bordered bg-white" datatable="ng">
                     <thead>
@@ -42,7 +42,18 @@
                             <td>{{branch.establishment_year}}</td>
                             <td ng-init="branch.contact = jsonParse(branch.contact)">{{branch.contact[0]}}</td>
                             <td ng-init="branch.email = jsonParse(branch.email)">{{branch.email[0]}}</td>
-                            <td></td>
+                            <td>
+                                <div class="btn-group" uib-dropdown is-open="status.isopen">
+                                    <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+                                        Action <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                                        <li role="menuitem"><a href="#"><span class="fa fa-list"></span> view</a></li>
+                                        <li role="menuitem"><a href="#"><span class="fa fa-trash-o"></span> Delete</a></li>
+                                        <li role="menuitem"><a href="#"><span class="fa fa-pencil"></span> Edit</a></li>
+                                    </ul>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -51,8 +62,8 @@
     </div>
 </div>
 <script type="text/javascript">
-        var app = angular.module("tutionApp", ['ui.bootstrap','datatables']);
-        app.config(['$compileProvider','$httpProvider',function($compileProvider,$httpProvider){
+    var app = angular.module("tutionApp", ['ui.bootstrap', 'datatables']);
+    app.config(['$compileProvider', '$httpProvider', function ($compileProvider, $httpProvider) {
             $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|sms):/);
             $httpProvider.defaults.transformRequest = function (data) {
                 if (data === undefined) {
@@ -62,16 +73,16 @@
             }
             $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
         }]);
-        app.filter('base64', function () {
-            return function (input) {
-                return btoa(input);
-            };
-        });
-        app.controller("tutionCtrl", function ($scope,$http) {
-            console.log("Controller is called");
-            $scope.branchs = <?php echo json_encode($branchs); ?>;
-            $scope.jsonParse = function(str){
-                return JSON.parse(str);
-            };  
-        });
+    app.filter('base64', function () {
+        return function (input) {
+            return btoa(input);
+        };
+    });
+    app.controller("tutionCtrl", function ($scope, $http) {
+        console.log("Controller is called");
+        $scope.branchs = <?php echo json_encode($branchs); ?>;
+        $scope.jsonParse = function (str) {
+            return JSON.parse(str);
+        };
+    });
 </script>
