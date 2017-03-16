@@ -47,6 +47,12 @@
                               <span class="font-normal">Tutions</span>
                             </a>
                           </li>
+                          <li>
+                            <a md-ink-ripple href="admin/courses">
+                              <i class="icon mdi-action-subject i-20"></i>
+                              <span class="font-normal">Courses</span>
+                            </a>
+                          </li>
                         </ul>
                       </nav>
                     </div>

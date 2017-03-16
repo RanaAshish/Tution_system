@@ -159,7 +159,7 @@
             $scope.courses.push(    
                     {
                         id:0,
-                        text:'Couses',
+                        text:'Courses',
                         parent:'#',
                         state:{opened: true}
                     });

@@ -25,6 +25,10 @@
         <!--google autocomplite-->
         <link href="<?=base_url()?>bower_components/angular-google-places-autocomplete/dist/autocomplete.min.css" rel="stylesheet" type="text/css"/>
         <script src="<?=base_url()?>bower_components/angular-google-places-autocomplete/dist/autocomplete.min.js" type="text/javascript"></script>
+        <!--JS Tree-->
+    <link href="<?=base_url()?>assets/plugins/jsTree/jsTree.min.css" rel="stylesheet" type="text/css"/>
+    <script src="<?=base_url()?>assets/plugins/jsTree/jsTree.min.js" type="text/javascript"></script>
+    <script src="<?=base_url()?>assets/plugins/jsTree/jsTree.directive.js" type="text/javascript"></script>
     </head>
     <body>
         <div class="app">
