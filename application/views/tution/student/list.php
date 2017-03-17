@@ -1,4 +1,4 @@
-<div class="box-cell" ng-app="tutionApp" ng-controller="tutionCtrl">
+<div class="box-cell" ng-app="tutionApp" ng-controller="tutionCtrl" ng-cloak="">
     <div class="box-inner padding">
         <div class="page-header-default">
             <div class="page-header-content">
@@ -24,7 +24,7 @@
             </div>
             
             <div class="table-responsive">
-                <table class="table table-bordered bg-white">
+                <table class="table table-bordered bg-white" datatable="ng">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -41,8 +41,11 @@
                             <td>{{student.course_name}}</td>
                             <td><a href="tution/branch/{{student.branch_id}}">{{student.branch_name}}</a></td>
                             <td>{{student.class_name}}</td>
-                            <td>{{student.primary_phone}}</td>
-                            <td></td>
+                            <td ng-init="student.contact = jsonParse(student.contact)">{{student.contact[0]}}</td>
+                            <td>
+                                <a href="javascript:;"><i class="fa fa-eye" title="View student detail"></i></a>
+                                <a href="javascript:;"><i class="fa fa-edit" title="Edit student"></i></a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -51,7 +54,7 @@
     </div>
 </div>
 <script type="text/javascript">
-        var app = angular.module("tutionApp", ['ui.bootstrap']);
+        var app = angular.module("tutionApp", ['ui.bootstrap','datatables']);
         app.config(['$compileProvider','$httpProvider',function($compileProvider,$httpProvider){
             $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|sms):/);
             $httpProvider.defaults.transformRequest = function (data) {

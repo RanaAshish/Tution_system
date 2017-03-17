@@ -1,4 +1,4 @@
-<div class="box-cell" ng-app="tutionApp" ng-controller="tutionCtrl">
+<div class="box-cell" ng-app="tutionApp" ng-controller="tutionCtrl" ng-cloak="">
     <div dismiss-on-timeout="2000" uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>
     <div class="box-inner padding">
         <div class="page-header-default">
@@ -98,7 +98,7 @@
                             <input type="email" class="form-control" name="email_{{key}}" ng-model="student.emails[key]"/>
                         </div>
                         <div class="col-sm-2">  
-                            <button type="button" class="btn btn-primary waves-effect" ng-click="removeEmail(key)" ng-hide="branch.emails.length == 1">
+                            <button type="button" class="btn btn-primary waves-effect" ng-click="removeEmail(key)" ng-hide="student.emails.length == 1">
                                 <i class="fa fa-minus"></i>
                             </button>
                         </div>
@@ -140,7 +140,6 @@
             $scope.student.contacts = [null];
             $scope.student.emails = [null];
             $scope.classes = <?php echo json_encode($classes); ?>;;
-            console.log($scope.classes);
 
             $scope.addContact = function () {
                 $scope.student.contacts.push('');
@@ -163,7 +162,6 @@
                     method:"POST",
                     data :$scope.student,
                 }).then(function(data){
-                    console.log("data:",data)
                     if(data.status){
                         $scope.student = {};
                         $scope.student.contacts = [null];
