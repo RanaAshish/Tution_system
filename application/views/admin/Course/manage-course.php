@@ -13,13 +13,48 @@
                 </ul>
             </div>
         </div>
+        <?php
+            if($this->session->flashdata('succ') != null)
+            {
+        ?>
+        <div class="alert alert-success">
+            <?=$this->session->flashdata('succ')?>
+        </div>
+        <?php
+            }
+        ?>
         <div class="panel panel-card">
             <div class="panel-heading">
                 <h3>Courses</h3>
                 <hr/>
             </div>
             <div class="panel-body">
-                <js-tree tree-data="scope" tree-model="courses" id="jsTree"></js-tree>
+                <form method="post" action="admin/course/add">
+                    <div class="form-group">
+                        <label class="control-label">Course Name : </label>
+                        <input class="form-control" name="text" required="" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Parent Course : </label>
+                        <select class="form-control" required="" name="parent">
+                            <option value="0"></option>
+                            <option ng-repeat="c in courses" value="{{c.id}}">{{c.text}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Course Type : </label>
+                        <select class="form-control" required="" name="type">
+                            <option value="">Select Course type</option>
+                            <option value="1">Degreee/Course</option>
+                            <option value="2">Year/Standard</option>
+                            <option value="3">Term/Sem</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success">save</button>
+                    </div>
+                </form>
+                <js-tree tree-data="scope" tree-model="courses"  id="jsTree"></js-tree>
             </div>
         </div>
     </div>

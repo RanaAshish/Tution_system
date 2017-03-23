@@ -22,4 +22,12 @@ class Course extends CI_Controller {
     	$this->data['courses'] = $this->basic->select('course');
     	$this->template->load('admin/Template', 'admin/Course/manage-course', $this->data);
     }
+
+    // Add new course
+    public function add()
+    {
+        $this->basic->insert('course', $this->input->post());
+        $this->session->set_flashdata('succ', 'Course added successfully.');
+        redirect('admin/courses');
+    }
 }
