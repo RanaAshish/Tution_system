@@ -4,7 +4,7 @@
  *
  * @author Me
  */
-class Auth extends CI_Controller
+class Auth extends My_Controller
 {
     var $data;
     public function __construct() 
