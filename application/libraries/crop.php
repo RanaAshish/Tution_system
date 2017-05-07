@@ -201,6 +201,16 @@ class crop {
     return 'Unknown upload error';
   }
 
+  /*
+   * setDestination is used to set destination of file that is going to upload
+   * 
+   * Developed by "Ashish"
+   */
+  public function setDestination($dest)
+  {
+      $this->dst = $dest;
+  }
+  
   public function getResult() {
     return !empty($this -> data) ? $this -> dst : $this -> src;
   }

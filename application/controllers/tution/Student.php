@@ -83,4 +83,30 @@ class Student extends Auth
         echo json_encode($responce);
         die();
     }
+    
+    /*
+     * Developed by "Ashish"
+     */
+    public function add_temp_pic()
+    {
+        if($this->input->post())
+        {
+            $this->load->library('crop', [
+                    isset($_POST['avatar_src']) ? $_POST['avatar_src'] : null,
+                    isset($_POST['avatar_data']) ? $_POST['avatar_data'] : null,
+                    isset($_FILES['avatar_file']) ? $_FILES['avatar_file'] : null
+                ]);
+            $response = array(
+              'state'  => 200,
+              'message' => $this->crop-> getMsg(),
+              'result' => $this->crop-> getResult()
+            );
+//            $row = $this->session->user;
+//            $row['profile_image'] = $this->crop->getFilename();
+//            $this->session->set_userdata('user', $row);
+            $this->basic->update('users', ['profile_image' => $this->crop->getFilename()], ['id' => $this->session->user['id']]);
+            echo json_encode($response);
+            die;
+        }
+    }
 }
