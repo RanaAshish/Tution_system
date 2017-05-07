@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Course extends CI_Controller {
+class Course extends My_Controller {
 	var $data;
 	public function __construct() {
         parent::__construct();

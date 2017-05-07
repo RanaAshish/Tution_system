@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Tution extends CI_Controller {
+class Tution extends My_Controller {
 
     var $data;
 
