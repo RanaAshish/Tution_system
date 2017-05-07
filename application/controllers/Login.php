@@ -24,6 +24,12 @@ class Login extends CI_Controller {
 
     public function index() 
     {
+        $this->load->helper('cookie');
+
+        setcookie('name','Ashish',time()+60*60*24*30);
+
+        // var_dump(get_cookie('name'));
+        // var_dump($_COOKIE);die;
         $this->load->view("login");
     }
 
